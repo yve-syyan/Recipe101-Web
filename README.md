@@ -8,7 +8,7 @@ According to our observation, we found that users of recipe-recommendation websi
 ## Data Sources
 
 1. [Recipe Ingredients](https://www.kaggle.com/kanaryayi/recipe-ingredients-and-reviews?select=clean_recipes.csv) 
-2. [Recipe Reviews] (https://www.kaggle.com/kanaryayi/recipe-ingredients-and-reviews?select=reviews.csv)
+2. [Recipe Reviews](https://www.kaggle.com/kanaryayi/recipe-ingredients-and-reviews?select=reviews.csv)
 3. [Spoonacular API](https://spoonacular.com/food-api/docs#Search-Recipes-Complex)
 
 ## ERD
