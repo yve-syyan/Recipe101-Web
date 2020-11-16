@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Syne+Mono&display=swap');
+.navbar
+{
+   font-size: 23px;
+   font-family: 'Architects Daughter', cursive;
+   background-color: darkslategray; 
+}
+
+p
+{
+  display: inline-block;
+  font-size: 23px;
+  padding-left: 5px;
+  padding-top: 8px;
+  font-family: 'Architects Daughter', cursive;
+  color: white;
+}
+
+.nav-item 
+{
+  padding-right: 10px;
+}
+
+.Dashboard
+{
+  background-color: #333333;
+
+}
