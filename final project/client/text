@@ -1,1 +1,3 @@
-npm install bootstrap
+yarn add @material-ui/core
+npm install  --save antd@3
+npm install @material-ui/core

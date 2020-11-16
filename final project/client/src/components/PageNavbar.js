@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export default class PageNavbar extends React.Component {
   constructor(props) {
-    props;
+    super(props);
 
     this.state = {
       navDivs: [],
@@ -12,7 +12,7 @@ export default class PageNavbar extends React.Component {
   }
 
   componentDidMount() {
-    const pageList = ["home", "search", "recommendation", "login"];
+    const pageList = ["home", "search", "recommendation", "logout"];
 
     let navbarDivs = pageList.map((page, i) => {
       if (this.props.active === page) {
