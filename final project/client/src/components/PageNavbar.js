@@ -1,3 +1,7 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/destructuring-assignment */
 import React from "react";
 import "../style/PageNavbar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -14,20 +18,20 @@ export default class PageNavbar extends React.Component {
   componentDidMount() {
     const pageList = ["home", "search", "recommendation", "logout"];
 
-    let navbarDivs = pageList.map((page, i) => {
+    const navbarDivs = pageList.map((page, i) => {
+      // eslint-disable-next-line react/prop-types
       if (this.props.active === page) {
         return (
-          <a className="nav-item nav-link active" key={i} href={"/" + page}>
-            {page.charAt(0).toUpperCase() + page.substring(1, page.length)}
-          </a>
-        );
-      } else {
-        return (
-          <a className="nav-item nav-link" key={i} href={"/" + page}>
+          <a className="nav-item nav-link active" key={i} href={`/${page}`}>
             {page.charAt(0).toUpperCase() + page.substring(1, page.length)}
           </a>
         );
       }
+      return (
+        <a className="nav-item nav-link" key={i} href={`/${page}`}>
+          {page.charAt(0).toUpperCase() + page.substring(1, page.length)}
+        </a>
+      );
     });
 
     this.setState({
@@ -44,7 +48,7 @@ export default class PageNavbar extends React.Component {
               src="https://img.icons8.com/plasticine/100/000000/cupcake.png"
               width="45"
               height="45"
-              class="d-inline-block"
+              className="d-inline-block"
               loading="lazy"
             />
             <p>RecipeGo</p>

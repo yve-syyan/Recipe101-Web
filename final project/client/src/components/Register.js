@@ -1,3 +1,4 @@
+/* eslint-disable  */
 import { Form, Input } from "antd";
 import Button from "@material-ui/core/Button";
 import React, { Component } from "react";
@@ -39,7 +40,6 @@ class RegistrationForm extends Component {
             console.log(res.status);
             if (res.status === 200) {
               console.log("Success");
-
               const theForm = document.getElementById("RegisterForm");
               theForm.remove();
               const LinktoLogin = document.createElement("p");
@@ -49,8 +49,8 @@ class RegistrationForm extends Component {
               const RegisterDiv = document.getElementById("RegisterDiv");
               RegisterDiv.appendChild(LinktoLogin);
               setTimeout(() => {
-                window.top.location = "http://localhost:3000/login";
-              }, 5500);
+                window.top.location = "http://localhost:3000";
+              }, 2000);
             } else if (res.status === 400) {
               const errorMessage = document.createElement("p");
               errorMessage.innerHTML = "User Account Already Exist";
@@ -189,7 +189,7 @@ class RegistrationForm extends Component {
             </Button>
             <div id="JumpLinklogin">
               <span> I already have an account, </span>
-              <Link to="/login" id="registerLink">
+              <Link to="/" id="registerLink">
                 {" "}
                 Go to Login
               </Link>

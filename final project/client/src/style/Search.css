@@ -1,0 +1,27 @@
+#IngredientBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  max-width: 1500px;
+}
+.ingredient {
+  margin-left: 30px;
+  padding: 2px;
+  margin-top: 30px;
+}
+
+#search {
+  display: flex;
+  flex-direction: row;
+}
+
+#recipes {
+  display: flex;
+  flex-direction: row;
+  max-width: 1500px;
+  overflow: scroll;
+}
+.recipeImg {
+  max-width: 300px;
+  max-height: 300px;
+}

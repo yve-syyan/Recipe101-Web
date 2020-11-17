@@ -1,3 +1,9 @@
 yarn add @material-ui/core
 npm install  --save antd@3
 npm install @material-ui/core
+npm install eslint --save-dev
+npx eslint --init
+npm install --save-dev eslint-config-prettier
+npm i -S prop-types
+npm install bootstrap-icons
+npm install axios
