@@ -26,3 +26,70 @@
 .carousel-fade .carousel-inner .active {
   opacity: 1;
 }
+
+.fullpage {
+  display: block;
+  height: 600px;
+  width: 100%;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+} 
+
+.cover-image {
+  display: block;
+  height: 600px;
+  width: 100%;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container-fluid{
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  text-align: conter;
+}
+
+.button-container{
+  display:table;
+  height: 600px;
+  width: 100%;
+  max-width: 1300px;
+  position:relative; 
+  /* left: 50%;
+  transform: translateX(-50%); */
+  margin-left: auto;
+  margin-right: auto;
+  padding-top:0px;
+  padding-bottom: 0px;
+  background-clip:border-box;
+}
+  
+.button-container a{
+  position: absolute;
+  background-color:#8F0005;
+  border-radius:1.5em;
+  color:white;
+  text-transform:uppercase;
+  padding:1em 1.5em;
+  font-family: "Patua One", cursive;
+}
+
+.right-pic {
+  bottom:9em;
+  right:21em;
+}
+
+.left-pic {
+  bottom:9em;
+  left:21em;
+}
+
+.bottom-pic {
+  height:200px;
+  width: 100%;
+}
+
+
+

@@ -16,7 +16,7 @@ export default class PageNavbar extends React.Component {
   }
 
   componentDidMount() {
-    const pageList = ["home", "search", "recommendation", "logout"];
+    const pageList = ["home", "search", "best", "logout"];
 
     const navbarDivs = pageList.map((page, i) => {
       // eslint-disable-next-line react/prop-types
@@ -45,13 +45,13 @@ export default class PageNavbar extends React.Component {
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <a className="navbar-brand center">
             <img
-              src="https://img.icons8.com/plasticine/100/000000/cupcake.png"
+              src="https://img.icons8.com/cotton/64/000000/bread-and-rye--v1.png"
               width="45"
               height="45"
-              className="d-inline-block"
+              className="d-inline-block icon" 
               loading="lazy"
             />
-            <p>RecipeGo</p>
+            <p className="web-name">RecipeGo</p>
           </a>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav ml-auto">{this.state.navDivs}</div>

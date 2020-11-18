@@ -1,17 +1,32 @@
-@import url("https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Syne+Mono&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Syne+Mono&display=swap"); */
+@import url('https://fonts.googleapis.com/css2?family=Patua+One&display=swap');
 .navbar {
   font-size: 23px;
-  font-family: "Architects Daughter", cursive;
-  /* background-color: darkslategray;  */
+  /* font-family: "Architects Daughter", cursive; */
+  font-family: "Patua One", cursive;
+  background-color: #9E4244 !important;  
+  height: 80px;
 }
 
 p {
   display: inline-block;
   font-size: 23px;
   padding-left: 5px;
-  padding-top: 8px;
-  font-family: "Architects Daughter", cursive;
+  padding-top: 10px;
+  /* font-family: "Architects Daughter", cursive; */
+  font-family: "Patua One", cursive;
   color: white;
+}
+
+.web-name {
+  padding-left: 10px;
+  padding-top: 18px;
+}
+
+.icon {
+  padding-top: 0px;
+  padding-bottom: 10px;
+  padding-left: 5px;
 }
 
 .nav-item {
