@@ -5,7 +5,7 @@ import "jquery/dist/jquery.min";
 // import SearchSharpIcon from "@material-ui/icons/SearchSharp";
 import "materialize-css/dist/css/materialize.min.css";
 import M from "materialize-css/dist/js/materialize.min";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
 import PageNavbar from "./PageNavbar";
 // import Ingredient from "./Ingredient";
 // import Recipe from "./Recipe";
@@ -27,7 +27,8 @@ export default class Search extends Component {
       ingredientArray: [],
       selectedCookingTime: 30,
       recepieArray: [],
-      page2:-1
+      page2: -1,
+      recipelist: [],
     };
 
     this.handleSendImg = this.handleSendImg.bind(this);
@@ -44,38 +45,6 @@ export default class Search extends Component {
     console.log("component did mount");
     M.AutoInit();
   }
-
-  // handledeleteItem(foodName) {
-  //   console.log(foodName);
-
-  //   const { ingredientArray } = this.state;
-  //   const array = ingredientArray;
-
-  //   for (let i = 0; i < array.length; i += 1) {
-  //     if (array[i].food.tempIngredient === foodName) {
-  //       array.splice(i, 1);
-  //     }
-  //   }
-
-  //   this.setState({ ingredientArray: array });
-  // }
-
-  // handleSubmitIngredientInput() {
-  //   const { ingredientArray, ingredient } = this.state;
-  //   const tempIngredient = ingredient;
-  //   if (tempIngredient !== "") {
-  //     fetchIngredient(tempIngredient).then((res) => {
-  //       const array = ingredientArray;
-  //       if (res !== 0) {
-  //         array.push({ food: { tempIngredient }, img: { res } });
-  //         console.log(array[0].img);
-  //         console.log(array[0].food);
-  //         this.setState({ ingredientArray: array });
-  //       }
-  //     });
-  //   }
-  //   document.getElementById("IngredientInput").value = "";
-  // }
 
   handleSendImg(e) {
     e.preventDefault();
@@ -99,9 +68,8 @@ export default class Search extends Component {
     });
   }
 
-
-
-  handleSubmit () {
+  handleSubmit() {
+    this.setState({ recipelist: [] });
     try {
       const { ingredientArray, recepieArray, page2 } = this.state;
       console.log(ingredientArray.tags);
@@ -122,9 +90,28 @@ export default class Search extends Component {
               TotalTime: obj.Total_Time,
             });
           });
+
           this.setState({ recepieArray: array });
           // this.setState({ initialArray: array.slice(0,5)});
-        })
+          let initialArray = [];
+          if (recepieArray.length >= 5) {
+            initialArray = array.slice(0, 5);
+          } else {
+            initialArray = array;
+          }
+          console.log(initialArray);
+          const recipe = (
+            <RecipeList
+              id="RecipeList"
+              className="recipes"
+              recipeInfo={array}
+              initialArray={initialArray}
+              page1={1}
+            />
+          );
+
+          this.setState({ recipelist: recipe });
+        });
       }
     } catch {
       console.log("error");
@@ -134,18 +121,18 @@ export default class Search extends Component {
   }
 
   handleIngredients = (ingredients) => {
-    this.setState({ingredientArray: ingredients});
-  } 
+    this.setState({ ingredientArray: ingredients });
+  };
 
   render() {
-    const {page, recepieArray, page2} = this.state;
-    let initialArray = [];
-    if(recepieArray.length >= 5) {
-      initialArray = recepieArray.slice(0, 5);
-    } else {
-      initialArray = recepieArray;
-    }
-    console.log(initialArray);
+    const { page, recepieArray, page2 } = this.state;
+    // let initialArray = [];
+    // if (recepieArray.length >= 5) {
+    //   initialArray = recepieArray.slice(0, 5);
+    // } else {
+    //   initialArray = recepieArray;
+    // }
+    // console.log(initialArray);
     return (
       <body>
         <div className="searchBoard">
@@ -153,20 +140,69 @@ export default class Search extends Component {
           <img className="fullpage" alt="" src={image0} />
           <div className="search-container container-fluid">
             <img className="fullpage" alt="" src={ingredientImage} />
-            <IngredientOption className="Option" getImage={this.handleSendImg} onSelectIngredients={this.handleIngredients} />
+            <IngredientOption
+              className="Option"
+              getImage={this.handleSendImg}
+              onSelectIngredients={this.handleIngredients}
+            />
           </div>
           <div className="search-container container-fluid">
             <img className="fullpage" alt="" src={difficultyImage} />
-            <DifficultyOption className="Option" getImage={this.handleSendImg} />
+            <DifficultyOption
+              className="Option"
+              getImage={this.handleSendImg}
+            />
           </div>
           <div className="search-container container-fluid">
             <img className="fullpage" alt="" src={recipeGoImage} />
-            <p style={{left: "68.3%", top: "38%", position:"absolute", transform: "translate(-50%, -50%)", lineHeight:5, color:"#F3E5AB", fontFamily:"Patua One", fontSize:"35px", "&:hover":{backgroundColor:"white"}}}>Find Your Recipe Now</p>
-            <Button onClick={this.handleSubmit} variant="outlined" style={{height:"12.6%", width:"41%", left: "68.4%", top: "58%", position:"absolute", transform: "translate(-50%, -50%)", lineHeight:5, borderColor:"#E4C2C1", border: '5px solid', backgroundColor:"#D1A080", color:"#F3E5AB", fontFamily:"Patua One", fontSize:"35px", "&:hover":{backgroundColor:"white"}}}>Recipe Go!</Button>
+            <p
+              style={{
+                left: "68.3%",
+                top: "38%",
+                position: "absolute",
+                transform: "translate(-50%, -50%)",
+                lineHeight: 5,
+                color: "#F3E5AB",
+                fontFamily: "Patua One",
+                fontSize: "35px",
+                "&:hover": { backgroundColor: "white" },
+              }}
+            >
+              Find Your Recipe Now
+            </p>
+            <Button
+              onClick={this.handleSubmit}
+              variant="outlined"
+              style={{
+                height: "12.6%",
+                width: "41%",
+                left: "68.4%",
+                top: "58%",
+                position: "absolute",
+                transform: "translate(-50%, -50%)",
+                lineHeight: 5,
+                borderColor: "#E4C2C1",
+                border: "5px solid",
+                backgroundColor: "#D1A080",
+                color: "#F3E5AB",
+                fontFamily: "Patua One",
+                fontSize: "35px",
+                "&:hover": { backgroundColor: "white" },
+              }}
+            >
+              Recipe Go!
+            </Button>
           </div>
           <br />
           <div className="recipeList fullpage">
-            <RecipeList className="recipes" recipeInfo={recepieArray} initialArray={initialArray} page2={page2} page={page} />
+            {this.state.recipelist}
+            {/* <RecipeList
+              id="RecipeList"
+              className="recipes"
+              recipeInfo={recepieArray}
+              initialArray={initialArray}
+              page1={1}
+            /> */}
           </div>
           {/* <div className="row">
             <div className="input-field col s4"></div>
@@ -192,10 +228,9 @@ export default class Search extends Component {
                 <option value="3">Option 3</option>
               </select2>
             </label>
-          </div> */}   
+          </div> */}
         </div>
       </body>
     );
   }
 }
-
