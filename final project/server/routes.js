@@ -74,6 +74,7 @@ function getReceipe(req, res) {
   });
 }
 
+
 // The exported functions, which can be accessed in index.js.
 module.exports = {
   registerAccount: registerAccount,

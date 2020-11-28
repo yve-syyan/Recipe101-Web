@@ -1,12 +1,25 @@
 /* eslint-disable react/no-unused-state */
+/* eslint-disable no-unused-vars */
 import React, { Component } from "react";
-import SearchSharpIcon from "@material-ui/icons/SearchSharp";
+import "jquery/dist/jquery.min";
+// import SearchSharpIcon from "@material-ui/icons/SearchSharp";
+import "materialize-css/dist/css/materialize.min.css";
+import M from "materialize-css/dist/js/materialize.min";
+import Button from '@material-ui/core/Button';
 import PageNavbar from "./PageNavbar";
-import Ingredient from "./Ingredient";
-import Recipe from "./Recipe";
+// import Ingredient from "./Ingredient";
+// import Recipe from "./Recipe";
 import { fetchIngredient, getReceipe } from "./getData";
+import IngredientOption from "./IngredientOption";
+import DifficultyOption from "./DifficultyOption";
+import RecipeList from "./RecipeList";
+import image0 from "../images/Picture5.png";
+import ingredientImage from "../images/Ingredient.png";
+import difficultyImage from "../images/Difficulty.png";
+import recipeGoImage from "../images/Recipego.png";
+import "../style/Search.css";
 
-class Search extends Component {
+export default class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,48 +27,55 @@ class Search extends Component {
       ingredientArray: [],
       selectedCookingTime: 30,
       recepieArray: [],
+      page2:-1
     };
 
     this.handleSendImg = this.handleSendImg.bind(this);
-    this.handleSubmitIngredientInput = this.handleSubmitIngredientInput.bind(
-      this
-    );
-    this.handledeleteItem = this.handledeleteItem.bind(this);
+    // this.handleSubmitIngredientInput = this.handleSubmitIngredientInput.bind(
+    //   this
+    // );
+    // this.handledeleteItem = this.handledeleteItem.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleIngredients = this.handleIngredients.bind(this);
   }
 
-  handledeleteItem(foodName) {
-    console.log(foodName);
-
-    const { ingredientArray } = this.state;
-    const array = ingredientArray;
-
-    for (let i = 0; i < array.length; i += 1) {
-      if (array[i].food.tempIngredient === foodName) {
-        array.splice(i, 1);
-      }
-    }
-
-    this.setState({ ingredientArray: array });
+  componentDidMount() {
+    console.log("component did mount");
+    M.AutoInit();
   }
 
-  handleSubmitIngredientInput() {
-    const { ingredientArray, ingredient } = this.state;
-    const tempIngredient = ingredient;
-    if (tempIngredient !== "") {
-      fetchIngredient(tempIngredient).then((res) => {
-        const array = ingredientArray;
-        if (res !== 0) {
-          array.push({ food: { tempIngredient }, img: { res } });
-          console.log(array[0].img);
-          console.log(array[0].food);
-          this.setState({ ingredientArray: array });
-        }
-      });
-    }
-    document.getElementById("IngredientInput").value = "";
-  }
+  // handledeleteItem(foodName) {
+  //   console.log(foodName);
+
+  //   const { ingredientArray } = this.state;
+  //   const array = ingredientArray;
+
+  //   for (let i = 0; i < array.length; i += 1) {
+  //     if (array[i].food.tempIngredient === foodName) {
+  //       array.splice(i, 1);
+  //     }
+  //   }
+
+  //   this.setState({ ingredientArray: array });
+  // }
+
+  // handleSubmitIngredientInput() {
+  //   const { ingredientArray, ingredient } = this.state;
+  //   const tempIngredient = ingredient;
+  //   if (tempIngredient !== "") {
+  //     fetchIngredient(tempIngredient).then((res) => {
+  //       const array = ingredientArray;
+  //       if (res !== 0) {
+  //         array.push({ food: { tempIngredient }, img: { res } });
+  //         console.log(array[0].img);
+  //         console.log(array[0].food);
+  //         this.setState({ ingredientArray: array });
+  //       }
+  //     });
+  //   }
+  //   document.getElementById("IngredientInput").value = "";
+  // }
 
   handleSendImg(e) {
     e.preventDefault();
@@ -79,116 +99,103 @@ class Search extends Component {
     });
   }
 
-  handleSubmit() {
-    const { ingredientArray, recepieArray } = this.state;
-    // console.log(ingredientArray);
-    const array = recepieArray;
-    for (let i = 0; i < ingredientArray.length; i += 1) {
-      // eslint-disable-next-line no-loop-func
-      getReceipe(ingredientArray[i].food.tempIngredient).then((res) => {
-        // console.log(res);
-        res.map((obj) => {
-          return array.push({
-            keyword: ingredientArray[i].food.tempIngredient,
-            Author: obj.Author,
-            Directions: obj.Directions,
-            Ingredients: obj.Ingredients,
-            RecipeName: obj["Recipe Name"],
-            RecipePhoto: obj["Recipe Photo"],
-            RecipeID: obj.RecipeID,
-            TotalTime: obj.Total_Time,
+
+
+  handleSubmit () {
+    try {
+      const { ingredientArray, recepieArray, page2 } = this.state;
+      console.log(ingredientArray.tags);
+      const array = [];
+      for (let i = 0; i < ingredientArray.tags.length; i += 1) {
+        // eslint-disable-next-line no-loop-func
+        console.log(ingredientArray.tags[i].title);
+        getReceipe(ingredientArray.tags[i].title).then((res) => {
+          res.map((obj) => {
+            return array.push({
+              keyword: ingredientArray.tags[i].title,
+              Author: obj.Author,
+              Directions: obj.Directions,
+              Ingredients: obj.Ingredients,
+              RecipeName: obj["Recipe Name"],
+              RecipePhoto: obj["Recipe Photo"],
+              RecipeID: obj.RecipeID,
+              TotalTime: obj.Total_Time,
+            });
           });
-        });
-        this.setState({ recepieArray: array });
-        console.log(recepieArray);
-      });
+          this.setState({ recepieArray: array });
+          // this.setState({ initialArray: array.slice(0,5)});
+        })
+      }
+    } catch {
+      console.log("error");
+    } finally {
+      console.log(this.recepieArray);
     }
   }
 
-  render() {
-    const { ingredientArray, recepieArray } = this.state;
-    return (
-      <div>
-        <PageNavbar />
-        <div>
-          <id id="search">
-            <input
-              id="IngredientInput"
-              type="text"
-              name="ingredient"
-              placeholder="Ingredient"
-              onChange={(e) => this.handleSendImg(e)}
-            />
-            <button
-              type="submit"
-              onClick={() => this.handleSubmitIngredientInput()}
-            >
-              Add
-            </button>
-            {/* <input id="time" type="text" placeholder="Cookingtime"></input> */}
-            <select
-              onChange={this.handleChange}
-              className="dropdown"
-              id="decadesDropdown"
-            >
-              <option select value>
-                -- select an cooking time( default 30 min) --
-              </option>
-              <option> 10 min</option>
-              <option> 20 min</option>
-              <option> 30 min</option>
-              <option> 40 min</option>
-              <option> 50 min</option>
-              <option> 1 hours</option>
-              <option> 1.5 hours</option>
-              <option> 2 hours</option>
-              <option> 2.5 hours</option>
-              <option> 3 hours</option>
-              <option> 3.5 hours</option>
-              <option> 4 hours</option>
-              <option> 4.5 hours</option>
-              <option> 5 hours</option>
-              <option> 5.5 hours or longer</option>
-            </select>
+  handleIngredients = (ingredients) => {
+    this.setState({ingredientArray: ingredients});
+  } 
 
-            <button type="submit" onClick={this.handleSubmit}>
-              {" "}
-              <SearchSharpIcon />
-            </button>
-          </id>
-          <div id="IngredientBox">
-            {ingredientArray.map((object) => {
-              return (
-                <Ingredient
-                  className="ingredient"
-                  name={object.food.tempIngredient}
-                  html={object.img}
-                  deleteItem={this.handledeleteItem}
-                />
-              );
-            })}
+  render() {
+    const {page, recepieArray, page2} = this.state;
+    let initialArray = [];
+    if(recepieArray.length >= 5) {
+      initialArray = recepieArray.slice(0, 5);
+    } else {
+      initialArray = recepieArray;
+    }
+    console.log(initialArray);
+    return (
+      <body>
+        <div className="searchBoard">
+          <PageNavbar />
+          <img className="fullpage" alt="" src={image0} />
+          <div className="search-container container-fluid">
+            <img className="fullpage" alt="" src={ingredientImage} />
+            <IngredientOption className="Option" getImage={this.handleSendImg} onSelectIngredients={this.handleIngredients} />
           </div>
+          <div className="search-container container-fluid">
+            <img className="fullpage" alt="" src={difficultyImage} />
+            <DifficultyOption className="Option" getImage={this.handleSendImg} />
+          </div>
+          <div className="search-container container-fluid">
+            <img className="fullpage" alt="" src={recipeGoImage} />
+            <p style={{left: "68.3%", top: "38%", position:"absolute", transform: "translate(-50%, -50%)", lineHeight:5, color:"#F3E5AB", fontFamily:"Patua One", fontSize:"35px", "&:hover":{backgroundColor:"white"}}}>Find Your Recipe Now</p>
+            <Button onClick={this.handleSubmit} variant="outlined" style={{height:"12.6%", width:"41%", left: "68.4%", top: "58%", position:"absolute", transform: "translate(-50%, -50%)", lineHeight:5, borderColor:"#E4C2C1", border: '5px solid', backgroundColor:"#D1A080", color:"#F3E5AB", fontFamily:"Patua One", fontSize:"35px", "&:hover":{backgroundColor:"white"}}}>Recipe Go!</Button>
+          </div>
+          <br />
+          <div className="recipeList fullpage">
+            <RecipeList className="recipes" recipeInfo={recepieArray} initialArray={initialArray} page2={page2} page={page} />
+          </div>
+          {/* <div className="row">
+            <div className="input-field col s4"></div>
+            <div className="input-field col s4">
+              <select searchable='List of options' id="lastName">
+                <option value="1">start 1</option>
+                <option value="2">start 2</option>
+                <option value="3">end 3</option>
+                <option value="4">end 4</option>
+                <option value="5">end 5</option>
+                <option value="6">go 3</option>
+              </select>
+              <label htmlFor="lastName" id="hi">Materialize Select</label>
+            </div>
+          </div> */}
+          {/* <div className="input-field col s12 form">
+            <label htmlFor="lastName" id="hi">
+              Materialize Select
+              <select2 searchable='List of options' name="lastName">
+                <option value="" disabled selected>Choose your option</option> 
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+              </select2>
+            </label>
+          </div> */}   
         </div>
-        <div id="recipes">
-          {" "}
-          {recepieArray.map((object) => {
-            return (
-              <Recipe
-                keyword={object.keyword}
-                author={object.Author}
-                driections={object.Directions}
-                ingredients={object.Ingredients}
-                recipeName={object.RecipeName}
-                recipePhoto={object.RecipePhoto}
-                recipeID={object.RecipeID}
-                totalTime={object.TotalTime}
-              />
-            );
-          })}
-        </div>
-      </div>
+      </body>
     );
   }
 }
 
-export default Search;

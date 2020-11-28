@@ -46,7 +46,7 @@ export default class HomePage extends React.Component {
               <div className="carousel-inner">
                 <div className="carousel-item justify-content-center">
                   <img
-                    className="cover-image fullpage"
+                    className="cover-image2 fullpage2"
                     src="https://images.unsplash.com/photo-1601409751311-cbecfe223af4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
                     className="d-block h-30"
                     alt="1"
@@ -54,7 +54,7 @@ export default class HomePage extends React.Component {
                 </div>
                 <div className="carousel-item active justify-content-center">
                   <img
-                    className="cover-image fullpage"
+                    className="cover-image2 fullpage2"
                     src="https://images.unsplash.com/photo-1543573852-1a71a6ce19bc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
                     className="d-block h-30"
                     alt="2"
@@ -62,7 +62,7 @@ export default class HomePage extends React.Component {
                 </div>
                 <div className="carousel-item justify-content-center">
                   <img
-                    className="cover-image fullpage"
+                    className="cover-image2 fullpage2"
                     src="https://images.unsplash.com/photo-1457666134378-6b77915bd5f2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1191&q=80"
                     className="d-block 3-50"
                     alt="3"
@@ -70,7 +70,7 @@ export default class HomePage extends React.Component {
                 </div>
                 <div className="carousel-item justify-content-center">
                   <img
-                    className="cover-image fullpage"
+                    className="cover-image2 fullpage2"
                     src="https://images.unsplash.com/photo-1599333521738-7c21be2d7283?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
                     className="d-block 3-50"
                     alt="4"
@@ -99,22 +99,22 @@ export default class HomePage extends React.Component {
             </div>
           </div> 
           <div className="button-container container-fluid">
-            <img src={image0} className="fullpage" />
+            <img src={image0} className="fullpage2" />
           </div>
           <div className="button-container container-fluid">
-            <img src={image1} className="fullpage" />
+            <img src={image1} className="fullpage2" />
             <a className="right-pic" href="/search" alt="Buy Tickets">Find More</a>
           </div>
           <div className="button-container container-fluid">
-            <img src={image2} className="fullpage" />
+            <img src={image2} className="fullpage2" />
             <a className="left-pic" href="/search" alt="Buy Tickets">Find More</a>
           </div>
           <div className="button-container container-fluid">
-            <img src={image3} className="fullpage" />
+            <img src={image3} className="fullpage2" />
             <a className="right-pic" href="/search" alt="Buy Tickets">Find More</a>
           </div>
           <div className="button-container container-fluid">
-            <img src={image4} className="fullpage" />
+            <img src={image4} className="fullpage2" />
             <a className="left-pic" href="/search" alt="Buy Tickets">Find More</a>
           </div>
           <img className="bottom-pic" src={image5} />
