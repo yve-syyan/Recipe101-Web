@@ -94,12 +94,12 @@ export default class Search extends Component {
           this.setState({ recepieArray: array });
           // this.setState({ initialArray: array.slice(0,5)});
           let initialArray = [];
-          if (recepieArray.length >= 5) {
+          if (array.length >= 5) {
             initialArray = array.slice(0, 5);
           } else {
             initialArray = array;
           }
-          console.log(initialArray);
+          console.log(("initialArray:", initialArray));
           const recipe = (
             <RecipeList
               id="RecipeList"

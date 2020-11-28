@@ -59,7 +59,7 @@ function RecipeList(props) {
   const classes = useStyles();
   const { recipeInfo, initialArray, page1 } = props;
   console.log(recipeInfo);
-  const [page, setPage] = useState(page1);
+  const [page, setPage] = useState(1);
   console.log(page);
   let [myarray, setMyarray] = useState(initialArray);
 
