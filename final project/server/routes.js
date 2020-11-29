@@ -43,7 +43,7 @@ function loginAccount(req, res) {
   const query = " Select * FROM User WHERE username = ? AND password = ?";
   const values = [user.username, user.password];
   connection.query(query, values, function (err, rows, fields) {
-    console.log(rows);
+    // console.log(rows);
     if (err) {
       res.status(400).json({ error: err.message });
       return;
@@ -58,7 +58,7 @@ function loginAccount(req, res) {
 }
 function getReceipe(req, res) {
   const ingredient = JSON.parse(req.params.food).element;
-  console.log(ingredient);
+  // console.log(ingredient);
 
   const query2 = `SELECT RecipeID, \`Recipe Name\`, \`Recipe Photo\`, Author, Ingredients, Directions, Total_Time FROM recipes_cleaned WHERE RecipeID in (SELECT RecipeID FROM (SELECT RecipeID, GROUP_CONCAT(ingredient SEPARATOR 	',') FROM ingredient_recipe GROUP BY RecipeID) X WHERE ingredients LIKE '%${ingredient}%') LIMIT 5;`;
 
@@ -68,16 +68,52 @@ function getReceipe(req, res) {
       console.log("xxx");
       return;
     } else {
+      // console.log(rows);
+      res.json(rows);
+    }
+  });
+}
+
+function getSingleRecipeIngredients(req, res) {
+  console.log("Get a single recipe  ingredients Infomation");
+  const id = JSON.parse(req.params.recipeid);
+  // console.log(id);
+  const query = `Select * from ingredient_recipe where RecipeID = "${id}";`;
+  connection.query(query, function (err, rows, fields) {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      console.log("Get a single recipe  ingredients Infomation fail");
+      return;
+    } else {
+      // console.log(rows);
+      res.json(rows);
+    }
+  });
+}
+
+function getSingleRecipeInfo(req, res) {
+  console.log(req);
+  console.log("Get a single recipe all Information");
+  const id = JSON.parse(req.params.recipeid);
+  console.log(id);
+  const query = `Select * from recipes_cleaned where RecipeID = "${id}";`;
+  connection.query(query, function (err, rows, fields) {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      console.log("Get a single recipe all Information fail");
+      return;
+    } else {
       console.log(rows);
       res.json(rows);
     }
   });
 }
 
-
 // The exported functions, which can be accessed in index.js.
 module.exports = {
   registerAccount: registerAccount,
   loginAccount: loginAccount,
   getReceipe: getReceipe,
+  getSingleRecipeIngredients: getSingleRecipeIngredients,
+  getSingleRecipeInfo: getSingleRecipeInfo,
 };

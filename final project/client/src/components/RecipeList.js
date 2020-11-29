@@ -15,8 +15,8 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 import Button from "@material-ui/core/Button";
 import PropTypes from "prop-types";
 import image0 from "../images/Picture7.png";
-import findRecipeImage from "../images/findRecipe.png";
-import image5 from "../images/Picture6.png"
+import findRecipeImage from "../images/findRecipe.png";
+import image5 from "../images/Picture6.png";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -71,19 +71,33 @@ function RecipeList(props) {
   if (page === 1) {
     myarray = initialArray;
   }
+
+  function handleLearnMore(id) {
+    console.log(id);
+    window.top.location = `http://localhost:3000/learnmore/${id}`;
+  }
+
   return (
     <div>
       <div className="classes.root fullpage">
-        <div className="search-container container-fluid" style={{background:"#B6666F"}}>
-          <img className="fullpage" alt="" src={findRecipeImage} />
-        </div>
+        <div
+          className="search-container container-fluid"
+          style={{ background: "#B6666F" }}
+        >
+                  
+          <img className="fullpage" alt="" src={findRecipeImage} />
+                
+        </div>
         {myarray.map((recipe) => (
-          <div style={{ marginTop: 0 }} className="search-container container-fluid">
+          <div
+            style={{ marginTop: 0 }}
+            className="search-container container-fluid"
+          >
             <Grid
               container
               spacing={0}
               style={{
-                backgroundColor: "#FEF2F2", 
+                backgroundColor: "#FEF2F2",
                 height: 300,
                 border: "4px solid #B6666F",
               }}
@@ -122,7 +136,14 @@ function RecipeList(props) {
                   borderLeft: "6px solid #B6666F",
                 }}
               >
-                <Grid item xs container direction="column" spacing={0} style={{}}>
+                <Grid
+                  item
+                  xs
+                  container
+                  direction="column"
+                  spacing={0}
+                  style={{}}
+                >
                   <Grid item xs>
                     <Typography
                       gutterBottom
@@ -191,6 +212,7 @@ function RecipeList(props) {
                           fontFamily: "Patua One",
                           fontSize: "18px",
                         }}
+                        onClick={() => handleLearnMore(recipe.RecipeID)}
                       >
                         Learn More
                       </Button>
@@ -208,11 +230,10 @@ function RecipeList(props) {
           page={page}
           onChange={handlePageChange}
           color="standard"
-          style={{backgroundColor:"#B6666F"}}
+          style={{ backgroundColor: "#B6666F" }}
         />
       </div>
     </div>
-    
   );
 }
 // localStorage.getItem("currentUser")

@@ -22,6 +22,10 @@ app.post("/login", routes.loginAccount);
 
 app.get("/receipebyingredient/:food", routes.getReceipe);
 
+app.get("/singlerecipeIngredient/:recipeid", routes.getSingleRecipeIngredients);
+
+app.get("/singlerecipeinfo/:recipeid", routes.getSingleRecipeInfo);
+
 app.listen(8080, () => {
   console.log(`Server listening on PORT 8080`);
 });
