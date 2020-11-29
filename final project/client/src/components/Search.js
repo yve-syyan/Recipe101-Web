@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unused-state */
 /* eslint-disable no-unused-vars */
+/* eslint-disable*/
 import React, { Component } from "react";
 import "jquery/dist/jquery.min";
 // import SearchSharpIcon from "@material-ui/icons/SearchSharp";
@@ -13,10 +14,11 @@ import { fetchIngredient, getReceipe } from "./getData";
 import IngredientOption from "./IngredientOption";
 import DifficultyOption from "./DifficultyOption";
 import RecipeList from "./RecipeList";
-import image0 from "../images/Picture5.png";
+import image0 from "../images/SearchPage.png";
 import ingredientImage from "../images/Ingredient.png";
 import difficultyImage from "../images/Difficulty.png";
 import recipeGoImage from "../images/Recipego.png";
+import image5 from "../images/Picture6.png"
 import "../style/Search.css";
 
 export default class Search extends Component {
@@ -137,7 +139,7 @@ export default class Search extends Component {
       <body>
         <div className="searchBoard">
           <PageNavbar />
-          <img className="fullpage" alt="" src={image0} />
+          <img className="fullpage2" alt="" src={image0} />
           <div className="search-container container-fluid">
             <img className="fullpage" alt="" src={ingredientImage} />
             <IngredientOption
@@ -193,8 +195,7 @@ export default class Search extends Component {
               Recipe Go!
             </Button>
           </div>
-          <br />
-          <div className="recipeList fullpage">
+          <div className="recipeList">
             {this.state.recipelist}
             {/* <RecipeList
               id="RecipeList"

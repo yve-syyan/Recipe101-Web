@@ -160,6 +160,7 @@ const IngredientOption = (props) => {
       ListboxProps={{style:{backgroundColor:"#9E4244", color:"white", fontFamily:"Patua One"}}}
       noOptionsText="Type in Your Ingredients"
       classes={{noOptions:classes.noOptions, input:classes.input, root:classes.root}}
+      limitTags={8}
 
     />
   );

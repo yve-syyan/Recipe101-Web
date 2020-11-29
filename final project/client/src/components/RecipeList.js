@@ -14,8 +14,9 @@ import Pagination from "@material-ui/lab/Pagination";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Button from "@material-ui/core/Button";
 import PropTypes from "prop-types";
-import image0 from "../images/Picture5.png";
-
+import image0 from "../images/Picture7.png";
+import findRecipeImage from "../images/findRecipe.png";
+import image5 from "../images/Picture6.png"
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -71,140 +72,147 @@ function RecipeList(props) {
     myarray = initialArray;
   }
   return (
-    <div className={classes.root}>
-      {myarray.map((recipe) => (
-        <div style={{ marginTop: 0 }}>
-          <Grid
-            container
-            spacing={0}
-            style={{
-              backgroundColor: "#9E4244",
-              height: 300,
-              border: "2px solid #B6666F",
-            }}
-          >
+    <div>
+      <div className="classes.root fullpage">
+        <div className="search-container container-fluid" style={{background:"#B6666F"}}>
+          <img className="fullpage" alt="" src={findRecipeImage} />
+        </div>
+        {myarray.map((recipe) => (
+          <div style={{ marginTop: 0 }} className="search-container container-fluid">
             <Grid
-              item
-              xs={3}
-              style={{
-                backgroundColor: "#9E4244",
-                margin: "2.9%",
-                marginTop: "2.0%",
-                border: "6px solid #B6666F",
-              }}
-            >
-              {/* <ButtonBase className={classes.image} style={{width:350, height:226, marginTop:33}}> */}
-              <img
-                className={classes.img}
-                alt="complex"
-                src={recipe.RecipePhoto}
-                style={{ width: "100%", height: 226, objectFit: "cover" }}
-              />
-              {/* </ButtonBase> */}
-            </Grid>
-            <Grid
-              item
-              xs={9}
-              sm
               container
+              spacing={0}
               style={{
-                backgroundColor: "white",
-                height: "100%",
-                width: "100%",
-                backgroundImage: `url(${image0})`,
-                backgroundSize: "100% 100%",
-                backgroundRepeat: "no-repeat",
-                borderLeft: "4px solid #B6666F",
+                backgroundColor: "#FEF2F2", 
+                height: 300,
+                border: "4px solid #B6666F",
               }}
             >
-              <Grid item xs container direction="column" spacing={0} style={{}}>
-                <Grid item xs>
-                  <Typography
-                    gutterBottom
-                    variant="subtitle1"
-                    style={{
-                      marginLeft: "11%",
-                      marginTop: "7%",
-                      color: "white",
-                      fontFamily: "Patua One",
-                      fontSize: "25px",
-                    }}
-                  >
-                    <span>{recipe.RecipeName}</span>
-                    <span style={{ fontSize: "15px", marginLeft: "2%" }}>
-                      Post By
-                    </span>
-                    <span style={{ fontSize: "15px", marginLeft: "0.5%" }}>
-                      {recipe.Author}
-                    </span>
-                  </Typography>
-                  <Typography
-                    gutterBottom
-                    variant="subtitle1"
-                    style={{
-                      marginLeft: "9%",
-                      color: "white",
-                      fontFamily: "Patua One",
-                      fontSize: "15px",
-                    }}
-                  >
-                    <span style={{ fontSize: "18px", marginLeft: "2%" }}>
-                      Keywords:
-                    </span>
-                    <span style={{ fontSize: "15px", marginLeft: "0.5%" }}>
-                      {recipe.keyword}
-                    </span>
-                  </Typography>
-                  <Typography
-                    variant="subtitle1"
-                    style={{
-                      marginLeft: "9%",
-                      color: "white",
-                      fontFamily: "Patua One",
-                    }}
-                  >
-                    <span style={{ fontSize: "18px", marginLeft: "2%" }}>
-                      Total
-                    </span>
-                    <span style={{ fontSize: "18px", marginLeft: "0.5%" }}>
-                      Time:
-                    </span>
-                    <span style={{ fontSize: "15px", marginLeft: "0.5%" }}>
-                      {recipe.TotalTime}
-                    </span>
-                    <span style={{ fontSize: "15px", marginLeft: "0.5%" }}>
-                      min
-                    </span>
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Button
-                    variant="body2"
-                    style={{
-                      marginLeft: "70%",
-                      marginBottom: "100%",
-                      color: "#E4C2C1",
-                      cursor: "pointer",
-                      fontFamily: "Patua One",
-                      fontSize: "18px",
-                    }}
-                  >
-                    Learn More
-                  </Button>
+              <Grid
+                item
+                xs={3}
+                style={{
+                  backgroundColor: "#9E4244",
+                  margin: "2.9%",
+                  marginTop: "2.0%",
+                  border: "6px solid #B6666F",
+                }}
+              >
+                {/* <ButtonBase className={classes.image} style={{width:350, height:226, marginTop:33}}> */}
+                <img
+                  className={classes.img}
+                  alt="complex"
+                  src={recipe.RecipePhoto}
+                  style={{ width: "100%", height: 226, objectFit: "cover" }}
+                />
+                {/* </ButtonBase> */}
+              </Grid>
+              <Grid
+                item
+                xs={9}
+                sm
+                container
+                style={{
+                  backgroundColor: "white",
+                  height: "100%",
+                  width: "100%",
+                  backgroundImage: `url(${image0})`,
+                  backgroundSize: "100% 100%",
+                  backgroundRepeat: "no-repeat",
+                  borderLeft: "6px solid #B6666F",
+                }}
+              >
+                <Grid item xs container direction="column" spacing={0} style={{}}>
+                  <Grid item xs>
+                    <Typography
+                      gutterBottom
+                      variant="subtitle1"
+                      style={{
+                        marginLeft: "11%",
+                        marginTop: "7%",
+                        color: "white",
+                        fontFamily: "Patua One",
+                        fontSize: "25px",
+                      }}
+                    >
+                      <span>{recipe.RecipeName}</span>
+                      <span style={{ fontSize: "15px", marginLeft: "2%" }}>
+                        Post By
+                      </span>
+                      <span style={{ fontSize: "15px", marginLeft: "0.5%" }}>
+                        {recipe.Author}
+                      </span>
+                    </Typography>
+                    <Typography
+                      gutterBottom
+                      variant="subtitle1"
+                      style={{
+                        marginLeft: "9%",
+                        color: "white",
+                        fontFamily: "Patua One",
+                        fontSize: "15px",
+                      }}
+                    >
+                      <span style={{ fontSize: "18px", marginLeft: "2%" }}>
+                        Keywords:
+                      </span>
+                      <span style={{ fontSize: "15px", marginLeft: "0.5%" }}>
+                        {recipe.keyword}
+                      </span>
+                    </Typography>
+                    <Typography
+                      variant="subtitle1"
+                      style={{
+                        marginLeft: "9%",
+                        color: "white",
+                        fontFamily: "Patua One",
+                      }}
+                    >
+                      <span style={{ fontSize: "18px", marginLeft: "2%" }}>
+                        Total
+                      </span>
+                      <span style={{ fontSize: "18px", marginLeft: "0.5%" }}>
+                        Time:
+                      </span>
+                      <span style={{ fontSize: "15px", marginLeft: "0.5%" }}>
+                        {recipe.TotalTime}
+                      </span>
+                      <span style={{ fontSize: "15px", marginLeft: "0.5%" }}>
+                        min
+                      </span>
+                    </Typography>
+                    <Grid item>
+                      <Button
+                        variant="body2"
+                        style={{
+                          marginLeft: "70%",
+                          color: "#E4C2C1",
+                          cursor: "pointer",
+                          fontFamily: "Patua One",
+                          fontSize: "18px",
+                        }}
+                      >
+                        Learn More
+                      </Button>
+                    </Grid>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </div>
-      ))}
-      <Pagination
-        id="Pagination"
-        count={recipeInfo.length / 5 + 1}
-        defaultPage={1}
-        page={page}
-        onChange={handlePageChange}
-      />
+          </div>
+        ))}
+        <Pagination
+          id="Pagination"
+          count={recipeInfo.length / 5}
+          defaultPage={1}
+          page={page}
+          onChange={handlePageChange}
+          color="standard"
+          style={{backgroundColor:"#B6666F"}}
+        />
+      </div>
     </div>
+    
   );
 }
 // localStorage.getItem("currentUser")

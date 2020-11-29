@@ -193,8 +193,15 @@ export default DifficultyOption;
 // export default withStyles(styles)(IngredientOption);
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const top100Films = [
-  { title: 'apple' },
-  { title: 'The Godfather' },
+  { title: '< 30min' },
+  { title: '30min' },
+  { title: '45min' },
+  { title: '1h' },
+  { title: '1h15min' },
+  { title: '1h30min' },
+  { title: '1h45min' },
+  { title: '2h' },
+  { title: '>2h' }
   // { title: 'The Godfather: Part II', year: 1974 },
   // { title: 'The Dark Knight', year: 2008 },
   // { title: '12 Angry Men', year: 1957 },
