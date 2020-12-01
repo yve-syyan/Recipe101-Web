@@ -24,7 +24,7 @@ class Recipe extends Component {
     return (
       <div className="ingredient">
         <div>{`keyword: ${keyword}`}</div>
-        <div>{recipeName}</div>
+        <div>{`keyword: ${recipeName}`}</div>
 
         <div>{`Author: ${author}`}</div>
         <div>

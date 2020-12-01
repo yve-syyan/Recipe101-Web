@@ -34,7 +34,7 @@ export default class Main extends React.Component {
   getLogin() {
     console.log(this.props.loginStatus);
     if (this.props.loginStatus) {
-      return <Redirect to="/homepage" />;
+      return <Redirect to="/home" />;
     } else {
       return <Login handleLogin={this.props.handleLogin} />;
     }
@@ -56,7 +56,7 @@ export default class Main extends React.Component {
             {/* <Route exact path="/" render={() => <Login />} /> */}
             <Route exact path="/login" component={this.getLogin} />
             <Route exact path="/register" component={Register} />
-            <Route exact path="/homepage" render={this.getHome} />
+            <Route exact path="/home" render={this.getHome} />
             <Route exact path="/search" component={this.getSearch} />
             <Route path="/learnmore" component={SingleRecipe} />
           </Switch>

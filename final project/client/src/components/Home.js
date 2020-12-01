@@ -25,7 +25,7 @@ export default class HomePage extends React.Component {
     return (
       <div className="Dashboard">
         <PageNavbar active="home" />
-        <div className="container-fluid">
+        <div className="container-fluid2">
           <div>
             <div
               id="carouselExampleIndicators"
@@ -44,15 +44,15 @@ export default class HomePage extends React.Component {
                 <li data-target="#carouselExampleIndicators" data-slide-to="3" />
               </ol>
               <div className="carousel-inner">
-                <div className="carousel-item justify-content-center">
+                <div className="carousel-item justify-content-center active">
                   <img
                     className="cover-image2 fullpage2"
-                    src="https://images.unsplash.com/photo-1601409751311-cbecfe223af4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
+                    src={image0}
                     className="d-block h-30"
                     alt="1"
                   />
                 </div>
-                <div className="carousel-item active justify-content-center">
+                <div className="carousel-item justify-content-center">
                   <img
                     className="cover-image2 fullpage2"
                     src="https://images.unsplash.com/photo-1543573852-1a71a6ce19bc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
@@ -64,7 +64,7 @@ export default class HomePage extends React.Component {
                   <img
                     className="cover-image2 fullpage2"
                     src="https://images.unsplash.com/photo-1457666134378-6b77915bd5f2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1191&q=80"
-                    className="d-block 3-50"
+                    className="d-block h-50"
                     alt="3"
                   />
                 </div>
@@ -72,7 +72,7 @@ export default class HomePage extends React.Component {
                   <img
                     className="cover-image2 fullpage2"
                     src="https://images.unsplash.com/photo-1599333521738-7c21be2d7283?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
-                    className="d-block 3-50"
+                    className="d-block h-50"
                     alt="4"
                   />
                 </div>
@@ -117,8 +117,8 @@ export default class HomePage extends React.Component {
             <img src={image4} className="fullpage2" />
             <a className="left-pic" href="/search" alt="Buy Tickets">Find More</a>
           </div>
-          <img className="bottom-pic" src={image5} />
         </div>
+        <img className="bottom-pic" src={image5} />
       </div>
     );
   }

@@ -12,7 +12,7 @@
 }
 
 .carousel {
-  height: 600px important!;
+  height: 600px !important;
 }
 
 .carousel-fade .carousel-inner .carousel-item {
@@ -48,6 +48,16 @@
   padding-left: 0 !important;
   padding-right: 0 !important;
   text-align: center;
+  margin-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+.container-fluid2{
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  text-align: center;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 .button-container{

@@ -14,8 +14,8 @@ import Pagination from "@material-ui/lab/Pagination";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Button from "@material-ui/core/Button";
 import PropTypes from "prop-types";
-import image0 from "../images/Picture7.png";
-import findRecipeImage from "../images/findRecipe.png";
+import image0 from "../images/Recipelist.png";
+import findRecipeImage from "../images/findRecipe2.png";
 import image5 from "../images/Picture6.png";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,15 +79,10 @@ function RecipeList(props) {
 
   return (
     <div>
+      <div className="search-container2 container-fluid">
+        <img className="fullpage3" alt="" src={findRecipeImage} />
+      </div>
       <div className="classes.root fullpage">
-        <div
-          className="search-container container-fluid"
-          style={{ background: "#B6666F" }}
-        >
-                  
-          <img className="fullpage" alt="" src={findRecipeImage} />
-                
-        </div>
         {myarray.map((recipe) => (
           <div
             style={{ marginTop: 0 }}
@@ -100,24 +95,32 @@ function RecipeList(props) {
                 backgroundColor: "#FEF2F2",
                 height: 300,
                 border: "4px solid #B6666F",
+                backgroundColor: "gray",
+                height: "100%",
+                width: "100%",
+                backgroundImage: `url(${image0})`,
+                backgroundSize: "100% 100%",
+                backgroundRepeat: "no-repeat",
               }}
             >
               <Grid
                 item
                 xs={3}
                 style={{
-                  backgroundColor: "#9E4244",
+                  // backgroundColor: "#9E4244",
                   margin: "2.9%",
-                  marginTop: "2.0%",
-                  border: "6px solid #B6666F",
+                  marginTop: "2.7%",
+                  marginLeft: "4.5%"
+                  // border: "6px solid #B6666F",
                 }}
               >
                 {/* <ButtonBase className={classes.image} style={{width:350, height:226, marginTop:33}}> */}
                 <img
-                  className={classes.img}
+                  //{classes.img}
+                  className="hover-shadow"
                   alt="complex"
                   src={recipe.RecipePhoto}
-                  style={{ width: "100%", height: 226, objectFit: "cover" }}
+                  style={{ width: "100%", height: 226, objectFit: "cover",  borderRadius: "20%"}}
                 />
                 {/* </ButtonBase> */}
               </Grid>
@@ -127,13 +130,13 @@ function RecipeList(props) {
                 sm
                 container
                 style={{
-                  backgroundColor: "white",
-                  height: "100%",
-                  width: "100%",
-                  backgroundImage: `url(${image0})`,
-                  backgroundSize: "100% 100%",
-                  backgroundRepeat: "no-repeat",
-                  borderLeft: "6px solid #B6666F",
+                  // backgroundColor: "white",
+                  // height: "100%",
+                  // width: "100%",
+                  // backgroundImage: `url(${image0})`,
+                  // backgroundSize: "100% 100%",
+                  // backgroundRepeat: "no-repeat",
+                  // borderLeft: "6px solid #B6666F",
                 }}
               >
                 <Grid
@@ -149,9 +152,9 @@ function RecipeList(props) {
                       gutterBottom
                       variant="subtitle1"
                       style={{
-                        marginLeft: "11%",
-                        marginTop: "7%",
-                        color: "white",
+                        marginLeft: "9%",
+                        marginTop: "7.5%",
+                        color: "#9E4244",
                         fontFamily: "Patua One",
                         fontSize: "25px",
                       }}
@@ -168,8 +171,8 @@ function RecipeList(props) {
                       gutterBottom
                       variant="subtitle1"
                       style={{
-                        marginLeft: "9%",
-                        color: "white",
+                        marginLeft: "7.2%",
+                        color: "#B6666F",
                         fontFamily: "Patua One",
                         fontSize: "15px",
                       }}
@@ -184,8 +187,8 @@ function RecipeList(props) {
                     <Typography
                       variant="subtitle1"
                       style={{
-                        marginLeft: "9%",
-                        color: "white",
+                        marginLeft: "7.2%",
+                        color: "#B6666F",
                         fontFamily: "Patua One",
                       }}
                     >
@@ -207,7 +210,7 @@ function RecipeList(props) {
                         variant="body2"
                         style={{
                           marginLeft: "70%",
-                          color: "#E4C2C1",
+                          color: "#9E4244",
                           cursor: "pointer",
                           fontFamily: "Patua One",
                           fontSize: "18px",
@@ -230,7 +233,7 @@ function RecipeList(props) {
           page={page}
           onChange={handlePageChange}
           color="standard"
-          style={{ backgroundColor: "#B6666F" }}
+          style={{ backgroundColor: "#9E4244" }}
         />
       </div>
     </div>

@@ -3,6 +3,7 @@
 /* eslint-disable*/
 import React, { Component } from "react";
 import "jquery/dist/jquery.min";
+import "bootstrap/dist/css/bootstrap.min.css";
 // import SearchSharpIcon from "@material-ui/icons/SearchSharp";
 import "materialize-css/dist/css/materialize.min.css";
 import M from "materialize-css/dist/js/materialize.min";
@@ -139,9 +140,9 @@ export default class Search extends Component {
       <body>
         <div className="searchBoard">
           <PageNavbar />
-          <img className="fullpage2" alt="" src={image0} />
+          <img className="fullpage" alt="" src={image0} />
           <div className="search-container container-fluid">
-            <img className="fullpage" alt="" src={ingredientImage} />
+            <img className="fullpage" style={{background:"black"}} alt="" src={ingredientImage} />
             <IngredientOption
               className="Option"
               getImage={this.handleSendImg}
