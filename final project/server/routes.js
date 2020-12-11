@@ -58,7 +58,7 @@ function loginAccount(req, res) {
 }
 function getReceipe(req, res) {
   const ingredient = JSON.parse(req.params.food).element;
-  // console.log(ingredient);
+  console.log(ingredient);
 
   const query2 = `SELECT RecipeID, \`Recipe Name\`, \`Recipe Photo\`, Author, Ingredients, Directions, Total_Time FROM recipes_cleaned WHERE RecipeID in (SELECT RecipeID FROM (SELECT RecipeID, GROUP_CONCAT(ingredient SEPARATOR 	',') FROM ingredient_recipe GROUP BY RecipeID) X WHERE ingredients LIKE '%${ingredient}%') LIMIT 5;`;
 
@@ -68,7 +68,7 @@ function getReceipe(req, res) {
       console.log("xxx");
       return;
     } else {
-      // console.log(rows);
+      console.log(rows);
       res.json(rows);
     }
   });
