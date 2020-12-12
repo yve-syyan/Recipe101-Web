@@ -12,6 +12,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Search from "./Search";
 import SingleRecipe from "./SingleRecipe";
+import Best from "./Best";
 
 export default class Main extends React.Component {
   constructor(props) {
@@ -58,7 +59,9 @@ export default class Main extends React.Component {
             <Route exact path="/register" component={Register} />
             <Route exact path="/home" render={this.getHome} />
             <Route exact path="/search" component={this.getSearch} />
+            <Route path="/best" component={Best} />
             <Route path="/learnmore" component={SingleRecipe} />
+
           </Switch>
         </Router>
       </div>

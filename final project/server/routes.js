@@ -141,28 +141,10 @@ function getRecommendBasedonSearchedRecipeAuthorandTime(req, res) {
 
 
 function getRecommendBaseonSearchRecipeSearchedRecipeIngredients(req, res) {
-  console.log("get Recommend Based on Searched Recipe similar ingredients");
+  // console.log("get Recommend Based on Searched Recipe similar ingredients");
   const id = req.params.id;
-  console.log(id);
-  // const query = `
-  // WITH ingredients AS(
-  //   SELECT ingredient
-  //     FROM ingredient_recipe 
-  //     WHERE RecipeID=${id} 
-  // ), similar_recipe AS(
-  //   SELECT RecipeID
-  //   FROM ingredient_recipe
-  //   GROUP BY recipeID
-  //   HAVING COUNT(ingredient in (SELECT * FROM ingredients))>=(SELECT FLOOR(COUNT(*)*0.8) FROM ingredients)
-  // )
-  //   SELECT SR.recipeID as ID, SC.\`Recipe Name\` as RecipeName, SC.\`Recipe Photo\` as RecipePhoto, Author, Total_Time
-  //     FROM similar_recipe SR 
-  //      LEFT JOIN recipes_cleaned SC ON SR.recipeID=SC.recipeID
-  //          LEFT JOIN reviews_cleaned RC ON SR.recipeID=RC.recipeID
-  //   GROUP BY SR.recipeID, SC.\`Recipe Name\`, SC.\`Recipe Photo\`
-  //     ORDER BY avg(RC.rate) DESC
-  //     LIMIT 5;
-  // `;
+  // console.log(id);
+
   const query = `
   WITH ingredients AS(
     SELECT ingredient
@@ -189,7 +171,7 @@ function getRecommendBaseonSearchRecipeSearchedRecipeIngredients(req, res) {
     GROUP BY SR.recipeID, SC.\`Recipe Name\`, SC.\`Recipe Photo\`, RC.avg_rate
        ORDER BY avg_rate DESC LIMIT 10;
   `
-  console.log(query);
+  // console.log(query);
   connection.query(query, function (err, rows, fields) {
     if (err) {
       res.status(400).json({ error: err.message });
@@ -197,6 +179,48 @@ function getRecommendBaseonSearchRecipeSearchedRecipeIngredients(req, res) {
       return;
     } else {
       // console.log(rows);
+      res.json(rows);
+    }
+  });
+}
+
+function getRecommendAuthorsBasedonPopularity(req, res) {
+  console.log("get Recommend Authors Based on Popularity");
+  const query = `SELECT a.Author, avg(b.Rate) 
+  FROM recipes_cleaned a JOIN reviews_cleaned b
+  ON a.RecipeID = b.RecipeID
+  GROUP BY a.Author
+  ORDER BY avg(b.Rate) DESC
+  LIMIT 20 ;
+  `;
+  // console.log(query);
+  connection.query(query, function (err, rows, fields) {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      console.log("get Recommend Authors Based on Popularity Fails");
+      return;
+    } else {
+      // console.log(rows);
+      res.json(rows);
+    }
+  });
+}
+
+
+function getRecommendRecipebaseOnAuthorChoice(req, res) {
+  console.log("get Recommend Recipe base On Author Choice");
+  const query = "SELECT a.RecipeID, avg(b.Rate), \`Recipe Name\`, \`Recipe Photo\`, Author, Directions, Total_Time FROM recipes_cleaned a JOIN reviews_cleaned b ON a.RecipeID = b.RecipeID WHERE a.Author = ? GROUP BY a.RecipeID ORDER BY avg(b.Rate) DESC LIMIT 10;"
+
+  const values = [req.params.author];
+  console.log(values);
+  console.log(query);
+  connection.query(query, values, function (err, rows, fields) {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      console.log("get Recommend Authors Based on Popularity Fails");
+      return;
+    } else {
+      console.log(rows);
       res.json(rows);
     }
   });
@@ -212,5 +236,7 @@ module.exports = {
   getSingleRecipeIngredients: getSingleRecipeIngredients,
   getSingleRecipeInfo: getSingleRecipeInfo,
   getRecommendBasedonSearchedRecipeAuthorandTime: getRecommendBasedonSearchedRecipeAuthorandTime,
-  getRecommendBaseonSearchRecipeSearchedRecipeIngredients: getRecommendBaseonSearchRecipeSearchedRecipeIngredients
+  getRecommendBaseonSearchRecipeSearchedRecipeIngredients: getRecommendBaseonSearchRecipeSearchedRecipeIngredients,
+  getRecommendAuthorsBasedonPopularity: getRecommendAuthorsBasedonPopularity,
+  getRecommendRecipebaseOnAuthorChoice: getRecommendRecipebaseOnAuthorChoice
 };

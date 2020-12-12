@@ -1,0 +1,19 @@
+#table{
+    max-width:500px;
+}
+#leaderBoard{
+    display: flex;
+    flex-direction: row;
+}
+#authorMenuImg{
+    min-width: 200px;
+    max-width: 300px;
+    min-height: 200px;
+    max-height: 300px;
+}
+
+#authorMenu{
+margin-top: 50px;
+display: flex;
+flex-direction: column;
+}

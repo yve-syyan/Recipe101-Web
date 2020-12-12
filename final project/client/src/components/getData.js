@@ -67,6 +67,26 @@ const getRecommendBaseonSearchRecipeSearchedRecipeIngredients = async (id) => {
 
   return res.data;
 }
+const getRecommendAuthorsBasedonPopularity = async () => {
+  console.log("getRecommendBaseonSearchRecipeSearchedRecipeIngredients");
+  const res = await axios.get(
+    `http://localhost:8080/recommendAuthorsBasedonPopularity`
+
+  );
+
+  return res.data;
+}
+
+const getRecipebaseOnAuthorChoice = async (author) => {
+  console.log("getRecipebaseOnAuthorChoice");
+
+  const res = await axios.get(
+    `http://localhost:8080/recommendRecipebaseOnAuthorChoice/${author}`
+
+  );
+
+  return res.data;
+}
 
 
 
@@ -77,5 +97,7 @@ export {
   getSingleRecipeIngredient,
   getSingleRecipeInfo,
   getRecommendBasedonSearchedRecipeAuthorandTime,
-  getRecommendBaseonSearchRecipeSearchedRecipeIngredients
+  getRecommendBaseonSearchRecipeSearchedRecipeIngredients,
+  getRecommendAuthorsBasedonPopularity,
+  getRecipebaseOnAuthorChoice
 };
