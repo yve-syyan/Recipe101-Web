@@ -96,6 +96,17 @@ const getRecipebaseOnAuthorChoice = async (author) => {
   return res.data;
 }
 
+const getReceipe3 = async (time) => {
+  console.log("getRecipebaseOnAuthorChoice");
+
+  const res = await axios.get(
+    `http://localhost:8080/getReciepbaseonTime/${time}`
+
+  );
+
+  return res.data;
+}
+
 
 
 // eslint-disable-next-line import/prefer-default-export
@@ -108,5 +119,6 @@ export {
   getRecommendBaseonSearchRecipeSearchedRecipeIngredients,
   getRecommendAuthorsBasedonPopularity,
   getRecipebaseOnAuthorChoice,
-  getReceipe2
+  getReceipe2,
+  getReceipe3
 };

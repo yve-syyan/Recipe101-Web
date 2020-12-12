@@ -76,7 +76,7 @@ LIMIT 5`;
       console.log("xxx");
       return;
     } else {
-      console.log(rows);
+      // console.log(rows);
       res.json(rows);
     }
   });
@@ -84,8 +84,8 @@ LIMIT 5`;
 
 function getReceipe2(req, res) {
   console.log("get recipe by difficulty");
- console.log(req.params.difficulty);
-  
+  console.log(req.params.difficulty);
+
   const query = `WITH avg_rating AS (
     SELECT avg(rate) FROM reviews_cleaned
    ), negative_user AS(
@@ -120,32 +120,12 @@ function getReceipe2(req, res) {
       console.log("xxx");
       return;
     } else {
-      console.log(rows);
+      // console.log(rows);
       res.json(rows);
     }
   });
 }
 
-// function getReceipe3(req, res) {
-//   console.log("get recipe by difficulty");
-//  console.log(req.params.time);
-  
-//   const query = `SELECT RecipeID, \`Recipe Name\`, \`Recipe Photo\`, Author, Ingredients, Directions, Total_Time
-//   FROM recipes_cleaned
-//   WHERE Total_Time BETWEEN 0 AND '${req.params.time}'
-//   LIMIT 20;`
-//   console.log(query);
-//   connection.query(query, function (err, rows, fields) {
-//     if (err) {
-//       res.status(400).json({ error: err.message});
-//       console.log("xxx");
-//       return;
-//     } else {
-//       console.log(rows);
-//       res.json(rows);
-//     }
-//   });
-// }
 
 function getSingleRecipeIngredients(req, res) {
   const id = JSON.parse(req.params.recipeid);
@@ -296,6 +276,31 @@ function getRecommendRecipebaseOnAuthorChoice(req, res) {
     }
   });
 }
+function getReciepbaseonTime(req, res) {
+  console.log("get Recipe based on Time ");
+  let upperBound = parseInt(req.params.time);
+  let lowerBound = upperBound - 30;
+  if (upperBound == 210) {
+    upperBound = 1000;
+    lowerBound = 180;
+  }
+  const query = `SELECT RecipeID, \`Recipe Name\`, \`Recipe Photo\`, Author, Directions, Total_Time
+  FROM recipes_cleaned
+  WHERE Total_Time BETWEEN ${lowerBound} AND ${upperBound}
+  LIMIT 20;
+  `;
+  console.log(query);
+  connection.query(query, function (err, rows, fields) {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      console.log("get Recommend Authors Based on Time Fails");
+      return;
+    } else {
+      // console.log(rows);
+      res.json(rows);
+    }
+  });
+}
 
 
 
@@ -310,5 +315,6 @@ module.exports = {
   getRecommendBasedonSearchedRecipeAuthorandTime: getRecommendBasedonSearchedRecipeAuthorandTime,
   getRecommendBaseonSearchRecipeSearchedRecipeIngredients: getRecommendBaseonSearchRecipeSearchedRecipeIngredients,
   getRecommendAuthorsBasedonPopularity: getRecommendAuthorsBasedonPopularity,
-  getRecommendRecipebaseOnAuthorChoice: getRecommendRecipebaseOnAuthorChoice
+  getRecommendRecipebaseOnAuthorChoice: getRecommendRecipebaseOnAuthorChoice,
+  getReciepbaseonTime: getReciepbaseonTime
 };

@@ -35,6 +35,8 @@ app.get("/recommendAuthorsBasedonPopularity", routes.getRecommendAuthorsBasedonP
 
 app.get("/recommendRecipebaseOnAuthorChoice/:author", routes.getRecommendRecipebaseOnAuthorChoice);
 
+app.get("/getReciepbaseonTime/:time", routes.getReciepbaseonTime)
+
 app.listen(8080, () => {
   console.log(`Server listening on PORT 8080`);
 });

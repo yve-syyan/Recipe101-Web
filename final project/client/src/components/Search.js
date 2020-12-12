@@ -11,7 +11,7 @@ import Button from "@material-ui/core/Button";
 import PageNavbar from "./PageNavbar";
 // import Ingredient from "./Ingredient";
 // import Recipe from "./Recipe";
-import { fetchIngredient, getReceipe, getReceipe2} from "./getData";
+import { fetchIngredient, getReceipe, getReceipe2, getReceipe3 } from "./getData";
 import IngredientOption from "./IngredientOption";
 import DifficultyOption from "./DifficultyOption";
 import RecipeList from "./RecipeList";
@@ -20,7 +20,6 @@ import image0 from "../images/SearchPage2.png";
 import ingredientImage from "../images/Ingredient.png";
 import difficultyImage from "../images/Difficulty.png";
 import recipeGoImage from "../images/Recipego.png";
-import image5 from "../images/Picture6.png";
 import TimeOption from "./TimeOption";
 import "../style/Search.css";
 
@@ -33,19 +32,17 @@ export default class Search extends Component {
       difficulty: "",
       time: "",
       selectedCookingTime: 30,
+      selectedRawTime: "0.5 hour",
       recepieArray: [],
       page2: -1,
       recipelist: [],
     };
 
     this.handleSendImg = this.handleSendImg.bind(this);
-    // this.handleSubmitIngredientInput = this.handleSubmitIngredientInput.bind(
-    //   this
-    // );
-    // this.handledeleteItem = this.handledeleteItem.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSubmit2 = this.handleSubmit2.bind(this);
+    this.handleSubmit3 = this.handleSubmit3.bind(this);
     this.handleIngredients = this.handleIngredients.bind(this);
   }
 
@@ -129,10 +126,11 @@ export default class Search extends Component {
   }
 
   handleSubmit2() {
+    this.setState({ recipelist: [] });
     try {
       const { ingredientArray, recepieArray, page2 } = this.state;
       const array = [];
-        // eslint-disable-next-line no-loop-func
+      // eslint-disable-next-line no-loop-func
       console.log("a", this.state.difficulty);
       getReceipe2(this.state.difficulty).then((res) => {
         res.map((obj) => {
@@ -178,71 +176,86 @@ export default class Search extends Component {
     }
   }
 
-  // handleSubmit3() {
-  //   try {
-  //     const { ingredientArray, recepieArray, page2 } = this.state;
-  //     const array = [];
-  //       // eslint-disable-next-line no-loop-func
-  //     console.log("a", this.state.difficulty);
-  //     getReceipe2(this.state.difficulty).then((res) => {
-  //       res.map((obj) => {
-  //         return array.push({
-  //           Level: this.state.time,
-  //           Author: obj.Author,
-  //           Directions: obj.Directions,
-  //           Ingredients: obj.Ingredients,
-  //           RecipeName: obj["Recipe Name"],
-  //           RecipePhoto: obj["Recipe Photo"],
-  //           RecipeID: obj.RecipeID,
-  //           TotalTime: obj.Total_Time,
-  //         });
-  //       });
+
+  handleSubmit3() {
+    this.setState({ recipelist: [] });
+    try {
+      const { ingredientArray, recepieArray, page2 } = this.state;
+      const array = [];
+      // eslint-disable-next-line no-loop-func
+      console.log("a", this.state.selectedCookingTime);
+      getReceipe3(this.state.selectedCookingTime).then((res) => {
+        let keywordTemp = this.state.selectedRawTime;
+        let keywordTempPrefix = (this.state.selectedCookingTime - 30) / 60;
+        keywordTempPrefix = keywordTempPrefix + "h - ";
+        keywordTemp = keywordTempPrefix + keywordTemp;
+        res.map((obj) => {
+          return array.push({
+            keyword: keywordTemp,
+            Author: obj.Author,
+            Directions: obj.Directions,
+            Ingredients: obj.Ingredients,
+            RecipeName: obj["Recipe Name"],
+            RecipePhoto: obj["Recipe Photo"],
+            RecipeID: obj.RecipeID,
+            TotalTime: obj.Total_Time,
+          });
+        });
 
 
-  //       this.setState({ recepieArray: array });
-  //       // this.setState({ initialArray: array.slice(0,5)});
-  //       console.log(array);
-  //       let initialArray = [];
-  //       if (array.length >= 5) {
-  //         initialArray = array.slice(0, 5);
-  //       } else {
-  //         initialArray = array;
-  //       }
-  //       console.log(("initialArray:", initialArray));
-  //       const recipe = (
-  //         <RecipeList2
-  //           id="RecipeList"
-  //           className="recipes"
-  //           recipeInfo={array}
-  //           initialArray={initialArray}
-  //           page1={1}
-  //         />
-  //       );
+        this.setState({ recepieArray: array });
+        // this.setState({ initialArray: array.slice(0,5)});
+        console.log(array);
+        let initialArray = [];
+        if (array.length >= 5) {
+          initialArray = array.slice(0, 5);
+        } else {
+          initialArray = array;
+        }
+        console.log(("initialArray:", initialArray));
+        const recipe = (
+          <RecipeList
+            id="RecipeList"
+            className="recipes"
+            recipeInfo={array}
+            initialArray={initialArray}
+            page1={1}
+          />
+        );
 
-  //       this.setState({ recipelist: recipe });
-  //     });
-  //   } catch {
-  //     console.log("error");
-  //   } finally {
-  //     console.log(this.recepieArray);
-  //   }
-  // }
+        this.setState({ recipelist: recipe });
+      });
+    } catch {
+      console.log("error");
+    } finally {
+      console.log(this.recepieArray);
+    }
+  }
+
+
 
   handleIngredients = (ingredients) => {
     this.setState({ ingredientArray: ingredients });
   };
 
   handleDifficulty = (difficulty) => {
-    if(difficulty.tags){
-      this.setState({ difficulty: difficulty.tags.title});
+    if (difficulty.tags) {
+      this.setState({ difficulty: difficulty.tags.title });
     }
   };
 
-  // handleTime = (time) => {
-  //   if(time.tags){
-  //     this.setState({ difficulty: difficulty.tags.title});
-  //   }
-  // };
+  handleTimeChange = (time) => {
+    if (time.tags) {
+      const timeTemp = time.tags.title;
+      const timeArray = timeTemp.split(" ");
+      const calculatedTime = parseFloat(timeArray[0]) * 60;
+      this.setState({ selectedCookingTime: calculatedTime });
+      this.setState({ selectedRawTime: timeTemp });
+      console.log(calculatedTime);
+    }
+  };
+
+
 
   render() {
     const { page, recepieArray, page2 } = this.state;
@@ -252,7 +265,7 @@ export default class Search extends Component {
           <PageNavbar />
           <img className="fullpage2" alt="" src={image0} />
           <div className="search-container container-fluid">
-            <img className="fullpage" style={{background:"black"}} alt="" src={ingredientImage} />
+            <img className="fullpage" style={{ background: "black" }} alt="" src={ingredientImage} />
             <IngredientOption
               className="Option"
               getImage={this.handleSendImg}
@@ -324,14 +337,15 @@ export default class Search extends Component {
                 "&:hover": { backgroundColor: "white" },
               }}
             > */}
-              {/* Find Your Recipe Now
+            {/* Find Your Recipe Now
             </p> */}
             <TimeOption
               className="Option"
               getImage={this.handleSendImg}
+              onSelectTime={this.handleTimeChange}
             />
             <Button
-              onClick={this.handleSubmit}
+              onClick={this.handleSubmit3}
               variant="outlined"
               style={{
                 height: "14%",
