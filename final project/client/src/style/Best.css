@@ -1,9 +1,13 @@
 #table{
     max-width:500px;
 }
+h3{
+    margin-left:50px;
+}
 #leaderBoard{
     display: flex;
     flex-direction: row;
+    margin-left:50px;
 }
 #authorMenuImg{
     min-width: 200px;
