@@ -186,12 +186,18 @@ function getRecommendBaseonSearchRecipeSearchedRecipeIngredients(req, res) {
 
 function getRecommendAuthorsBasedonPopularity(req, res) {
   console.log("get Recommend Authors Based on Popularity");
-  const query = `SELECT a.Author, avg(b.Rate) 
-  FROM recipes_cleaned a JOIN reviews_cleaned b
-  ON a.RecipeID = b.RecipeID
-  GROUP BY a.Author
-  ORDER BY avg(b.Rate) DESC
-  LIMIT 20 ;
+  const query = `WITH productive_author AS(
+    SELECT *
+       FROM recipes_cleaned
+       GROUP BY author
+       HAVING COUNT(*)>=5
+   )
+   SELECT a.Author, avg(b.Rate) 
+   FROM productive_author a JOIN reviews_cleaned b
+   ON a.RecipeID = b.RecipeID
+   GROUP BY a.Author
+   ORDER BY avg(b.Rate) DESC
+   LIMIT 20;
   `;
   // console.log(query);
   connection.query(query, function (err, rows, fields) {
@@ -220,7 +226,7 @@ function getRecommendRecipebaseOnAuthorChoice(req, res) {
       console.log("get Recommend Authors Based on Popularity Fails");
       return;
     } else {
-      console.log(rows);
+      // console.log(rows);
       res.json(rows);
     }
   });
