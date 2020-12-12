@@ -144,32 +144,59 @@ function getRecommendBaseonSearchRecipeSearchedRecipeIngredients(req, res) {
   console.log("get Recommend Based on Searched Recipe similar ingredients");
   const id = req.params.id;
   console.log(id);
+  // const query = `
+  // WITH ingredients AS(
+  //   SELECT ingredient
+  //     FROM ingredient_recipe 
+  //     WHERE RecipeID=${id} 
+  // ), similar_recipe AS(
+  //   SELECT RecipeID
+  //   FROM ingredient_recipe
+  //   GROUP BY recipeID
+  //   HAVING COUNT(ingredient in (SELECT * FROM ingredients))>=(SELECT FLOOR(COUNT(*)*0.8) FROM ingredients)
+  // )
+  //   SELECT SR.recipeID as ID, SC.\`Recipe Name\` as RecipeName, SC.\`Recipe Photo\` as RecipePhoto, Author, Total_Time
+  //     FROM similar_recipe SR 
+  //      LEFT JOIN recipes_cleaned SC ON SR.recipeID=SC.recipeID
+  //          LEFT JOIN reviews_cleaned RC ON SR.recipeID=RC.recipeID
+  //   GROUP BY SR.recipeID, SC.\`Recipe Name\`, SC.\`Recipe Photo\`
+  //     ORDER BY avg(RC.rate) DESC
+  //     LIMIT 5;
+  // `;
   const query = `
   WITH ingredients AS(
     SELECT ingredient
-      FROM ingredient_recipe 
-      WHERE RecipeID=${id} 
-  ), similar_recipe AS(
+       FROM ingredient_recipe 
+       WHERE RecipeID=${id} 
+   ), similar_ingredient_num AS(
+    SELECT FLOOR(COUNT(*)*0.9) 
+       FROM ingredients
+   ), similar_recipe AS(
     SELECT RecipeID
     FROM ingredient_recipe
     GROUP BY recipeID
-    HAVING COUNT(ingredient in (SELECT * FROM ingredients))>=(SELECT FLOOR(COUNT(*)*0.8) FROM ingredients)
-  )
-    SELECT SR.recipeID as ID, SC.\`Recipe Name\` as RecipeName, SC.\`Recipe Photo\` as RecipePhoto
-      FROM similar_recipe SR 
-       LEFT JOIN recipes_cleaned SC ON SR.recipeID=SC.recipeID
-           LEFT JOIN reviews_cleaned RC ON SR.recipeID=RC.recipeID
-    GROUP BY SR.recipeID, SC.\`Recipe Name\`, SC.\`Recipe Photo\`
-      ORDER BY avg(RC.rate) DESC
-      LIMIT 5;
-  `;
+    HAVING COUNT(ingredient in (SELECT * FROM ingredients))>=(SELECT * FROM similar_ingredient_num)
+   ), reviews_avg AS(
+    SELECT RecipeID, avg(rate) as avg_rate
+       FROM reviews_cleaned 
+       GROUP BY RecipeID
+   )
+    SELECT DISTINCT SR.recipeID as ID, SC.\`Recipe Name\` as RecipeName, SC.\`Recipe Photo\` as RecipePhoto, Author, Total_Time
+       FROM similar_recipe SR 
+      LEFT JOIN recipes_cleaned SC ON SR.recipeID=SC.recipeID
+      LEFT JOIN reviews_avg RC ON SR.recipeID=RC.recipeID
+    WHERE SR.recipeID!=${id} 
+    GROUP BY SR.recipeID, SC.\`Recipe Name\`, SC.\`Recipe Photo\`, RC.avg_rate
+       ORDER BY avg_rate DESC LIMIT 10;
+  `
+  console.log(query);
   connection.query(query, function (err, rows, fields) {
     if (err) {
       res.status(400).json({ error: err.message });
       console.log("get Recommend Based on Searched Recipe Author and Time Failed");
       return;
     } else {
-      console.log(rows);
+      // console.log(rows);
       res.json(rows);
     }
   });

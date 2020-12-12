@@ -50,10 +50,13 @@ class SingleRecipe extends Component {
     getRecommendBasedonSearchedRecipeAuthorandTime(author, totaltime).then((res) => {
       console.log(res);
       const recommendAuthorTimeTemp = res.map((ele) => {
+        let link = `http://localhost:3000/learnmore/?id=${ele["RecipeID"]}&author=${ele["Author"]}&totaltime=${ele["Total_Time"]}`
         return (
           <div>
             <p style={{ marginTop: "40px", marginLeft: "70px", marignBottom: "0px", color: "white", fontSize: "20px" }}> {ele["Recipe Name"]}</p>
-            <img style={{ marginLeft: "14%", marginTop: "10px", width: "93%", height: "70%", borderRadius: "10%", "min-width": "200px", "min-height": "200px" }} src={ele["Recipe Photo"]} />
+            <a href={link} >
+              <img style={{ marginLeft: "14%", marginTop: "10px", width: "93%", height: "70%", borderRadius: "10%", "min-width": "200px", "min-height": "200px" }} src={ele["Recipe Photo"]} />
+            </a>
           </div >
         )
       })
@@ -62,13 +65,21 @@ class SingleRecipe extends Component {
     });
     getRecommendBaseonSearchRecipeSearchedRecipeIngredients(recipeIDTemp).then((res) => {
       console.log(res);
+      const set1 = new Set();
+
       const recommendBaseOnIngredientTemp = res.map((ele) => {
-        return (
-          <div>
-            <p style={{ marginTop: "40px", marginLeft: "70px", marignBottom: "0px", color: "white", fontSize: "20px" }}> {ele["RecipeName"]}</p>
-            <img style={{ marginLeft: "14%", marginTop: "10px", width: "93%", height: "70%", borderRadius: "10%", "min-width": "200px", "min-height": "200px" }} src={ele["RecipePhoto"]} />
-          </div >
-        )
+        if (!set1.has(ele["RecipeName"])) {
+          set1.add(ele["RecipeName"]);
+          let link = `http://localhost:3000/learnmore/?id=${ele["ID"]}&author=${ele["Author"]}&totaltime=${ele["Total_Time"]}`
+          return (
+            <div>
+              <p style={{ marginTop: "40px", marginLeft: "70px", marignBottom: "0px", color: "white", fontSize: "20px" }}> {ele["RecipeName"]}</p>
+              <a href={link} >
+                <img style={{ marginLeft: "14%", marginTop: "10px", width: "93%", height: "70%", borderRadius: "10%", "min-width": "200px", "min-height": "200px" }} src={ele["RecipePhoto"]} />
+              </a>
+            </div >
+          )
+        }
       })
 
       this.setState({ recommendBaseOnIngredient: recommendBaseOnIngredientTemp });
@@ -77,21 +88,10 @@ class SingleRecipe extends Component {
 
 
 
-    getSingleRecipeIngredient(recipeIDTemp).then((res) => {
-      console.log(res[0].quantity);
-      console.log(res[0].unit);
-      console.log(res[0].ingredient);
-      console.log(res);
-    });
     getSingleRecipeInfo(recipeIDTemp).then((res) => {
-      //   console.log(res[0].RecipeID);
-      //   console.log(res[0]["Recipe Name"]);
-      //   console.log(res[0]["Recipe Photo"]);
-      //   console.log(res[0].Author);
-      //   console.log(res[0].Directions);
-      //   console.log(res[0].Prepare_Time);
-      //   console.log(res[0].Cook_Time);
-      //   console.log(res[0].Total_Time);
+      if (res == undefined || res[0] == undefined) {
+        return;
+      }
       const instruction = res[0].Directions.split("**");
       // console.log(instruction);
       const theRecepieInfoTemp = (
@@ -133,7 +133,7 @@ class SingleRecipe extends Component {
           <div id="recommendAuthorTime">
             {this.state.recommendAuthorTime}
           </div>
-          <p> Recommendations base on 80% Matching Ingredients</p>
+          <p> Recommendations base on 90% Matching Ingredients</p>
           <div id="recommendAuthorTime">
             {this.state.recommendBaseOnIngredient}
           </div>

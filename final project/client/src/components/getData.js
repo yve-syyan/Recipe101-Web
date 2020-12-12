@@ -55,6 +55,7 @@ const getRecommendBasedonSearchedRecipeAuthorandTime = async (author, totalTime)
     `http://localhost:8080/recommendBasedonSearchedRecipeAuthorandTime/${author}&${totalTime}`
 
   );
+  console.log(res.data);
   return res.data;
 }
 const getRecommendBaseonSearchRecipeSearchedRecipeIngredients = async (id) => {
@@ -63,6 +64,7 @@ const getRecommendBaseonSearchRecipeSearchedRecipeIngredients = async (id) => {
     `http://localhost:8080/recommendBasedonSearchedRecipeIngredients/${id}`
 
   );
+
   return res.data;
 }
 
