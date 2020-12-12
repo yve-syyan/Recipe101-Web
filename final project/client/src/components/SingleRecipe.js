@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React, { Component } from "react";
-import { getSingleRecipeIngredient, getSingleRecipeInfo, getRecommendBasedonSearchedRecipeAuthorandTime } from "./getData";
+import { getSingleRecipeIngredient, getSingleRecipeInfo, getRecommendBasedonSearchedRecipeAuthorandTime, getRecommendBaseonSearchRecipeSearchedRecipeIngredients } from "./getData";
 import "../style/Recipe.css";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -31,6 +31,7 @@ class SingleRecipe extends Component {
       instructionState: "",
       recipeID: "",
       recommendAuthorTime: [],
+      recommendBaseOnIngredient: []
     };
   }
 
@@ -52,13 +53,27 @@ class SingleRecipe extends Component {
         return (
           <div>
             <p style={{ marginTop: "40px", marginLeft: "70px", marignBottom: "0px", color: "white", fontSize: "20px" }}> {ele["Recipe Name"]}</p>
-            <img style={{ marginLeft: "14%", marginTop: "10px", width: "93%", height: "70%", borderRadius: "10%" }} src={ele["Recipe Photo"]} />
+            <img style={{ marginLeft: "14%", marginTop: "10px", width: "93%", height: "70%", borderRadius: "10%", "min-width": "200px", "min-height": "200px" }} src={ele["Recipe Photo"]} />
           </div >
         )
       })
 
       this.setState({ recommendAuthorTime: recommendAuthorTimeTemp });
     });
+    getRecommendBaseonSearchRecipeSearchedRecipeIngredients(recipeIDTemp).then((res) => {
+      console.log(res);
+      const recommendBaseOnIngredientTemp = res.map((ele) => {
+        return (
+          <div>
+            <p style={{ marginTop: "40px", marginLeft: "70px", marignBottom: "0px", color: "white", fontSize: "20px" }}> {ele["RecipeName"]}</p>
+            <img style={{ marginLeft: "14%", marginTop: "10px", width: "93%", height: "70%", borderRadius: "10%", "min-width": "200px", "min-height": "200px" }} src={ele["RecipePhoto"]} />
+          </div >
+        )
+      })
+
+      this.setState({ recommendBaseOnIngredient: recommendBaseOnIngredientTemp });
+
+    })
 
 
 
@@ -117,6 +132,10 @@ class SingleRecipe extends Component {
           <p> Recommendations based on  Same Author and Similar Cooking Time</p>
           <div id="recommendAuthorTime">
             {this.state.recommendAuthorTime}
+          </div>
+          <p> Recommendations base on 80% Matching Ingredients</p>
+          <div id="recommendAuthorTime">
+            {this.state.recommendBaseOnIngredient}
           </div>
         </div>
       </body >

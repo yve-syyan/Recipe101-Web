@@ -57,6 +57,14 @@ const getRecommendBasedonSearchedRecipeAuthorandTime = async (author, totalTime)
   );
   return res.data;
 }
+const getRecommendBaseonSearchRecipeSearchedRecipeIngredients = async (id) => {
+  console.log("getRecommendBaseonSearchRecipeSearchedRecipeIngredients");
+  const res = await axios.get(
+    `http://localhost:8080/recommendBasedonSearchedRecipeIngredients/${id}`
+
+  );
+  return res.data;
+}
 
 
 
@@ -67,4 +75,5 @@ export {
   getSingleRecipeIngredient,
   getSingleRecipeInfo,
   getRecommendBasedonSearchedRecipeAuthorandTime,
+  getRecommendBaseonSearchRecipeSearchedRecipeIngredients
 };

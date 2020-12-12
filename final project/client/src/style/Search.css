@@ -137,7 +137,8 @@ PageNavbar {
 #recommendAuthorTime{
   display: flex;
   flex-direction: row;
-  max-width: 1000px;
+  min-width: 1250px;
+  max-width: 1250px;
   overflow: scroll;
 }
 
