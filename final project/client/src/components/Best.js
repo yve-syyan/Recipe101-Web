@@ -16,21 +16,21 @@ class Best extends Component {
     handleSubmit(person) {
         getRecipebaseOnAuthorChoice(person).then((res) => {
             console.log(res);
-            const set2 = new Set();
+            // const set2 = new Set();
 
             const authorMenu = res.map((recipe) => {
-                if (!set2.has(recipe["Recipe Name"])) {
-                    set2.add(recipe["Recipe Name"]);
-                    let link = `http://localhost:3000/learnmore/?id=${recipe["RecipeID"]}&author=${recipe["Author"]}&totaltime=${recipe["Total_Time"]}`
-                    return (
-                        <div>
-                            <div style={{ marginTop: "40px", marginLeft: "70px", marignBottom: "0px", color: "white", fontSize: "15 px" }}>{recipe["Recipe Name"]}</div>
-                            <a href={link} >
-                                <img id="authorMenuImg" src={recipe["Recipe Photo"]} />
-                            </a>
-                        </div>
-                    )
-                }
+                // if (!set2.has(recipe["Recipe Name"])) {
+                //     set2.add(recipe["Recipe Name"]);
+                let link = `http://localhost:3000/learnmore/?id=${recipe["RecipeID"]}&author=${recipe["Author"]}&totaltime=${recipe["Total_Time"]}`
+                return (
+                    <div>
+                        <div style={{ marginTop: "40px", marginLeft: "70px", marignBottom: "0px", color: "white", fontSize: "15 px" }}>{recipe["Recipe Name"]}</div>
+                        <a href={link} >
+                            <img id="authorMenuImg" src={recipe["Recipe Photo"]} />
+                        </a>
+                    </div>
+                )
+                // }
             })
 
             this.setState({ authorMenuState: authorMenu })
