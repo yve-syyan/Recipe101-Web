@@ -72,9 +72,9 @@ function RecipeList(props) {
     myarray = initialArray;
   }
 
-  function handleLearnMore(id) {
+  function handleLearnMore(id, author, totalTime) {
     console.log(id);
-    window.top.location = `http://localhost:3000/learnmore/${id}`;
+    window.top.location = `http://localhost:3000/learnmore/?id=${id}&author=${author}&totaltime=${totalTime}`;
   }
 
   return (
@@ -120,7 +120,7 @@ function RecipeList(props) {
                   className="hover-shadow"
                   alt="complex"
                   src={recipe.RecipePhoto}
-                  style={{ width: "100%", height: 226, objectFit: "cover",  borderRadius: "20%"}}
+                  style={{ width: "100%", height: 226, objectFit: "cover", borderRadius: "20%" }}
                 />
                 {/* </ButtonBase> */}
               </Grid>
@@ -215,7 +215,7 @@ function RecipeList(props) {
                           fontFamily: "Patua One",
                           fontSize: "18px",
                         }}
-                        onClick={() => handleLearnMore(recipe.RecipeID)}
+                        onClick={() => handleLearnMore(recipe.RecipeID, recipe.Author, recipe.TotalTime)}
                       >
                         Learn More
                       </Button>

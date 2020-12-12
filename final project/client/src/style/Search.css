@@ -134,4 +134,11 @@ PageNavbar {
   padding-bottom: 0;
 }
 
+#recommendAuthorTime{
+  display: flex;
+  flex-direction: row;
+  max-width: 1000px;
+  overflow: scroll;
+}
+
 

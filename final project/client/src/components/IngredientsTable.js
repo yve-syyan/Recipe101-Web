@@ -16,7 +16,7 @@ import FirstPageIcon from '@material-ui/icons/FirstPage';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
-import { getSingleRecipeIngredient, getSingleRecipeInfo } from "./getData";
+import { getSingleRecipeIngredient } from "./getData";
 
 const useStyles1 = makeStyles((theme) => ({
   root: {
@@ -105,7 +105,7 @@ const useStyles2 = makeStyles({
 // const rows = getSingleRecipeIngredient(props.recipeID);
 
 export default function CustomPaginationActionsTable(props) {
-//   console.log(rows);
+  //   console.log(rows);
   const classes = useStyles2();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -124,34 +124,14 @@ export default function CustomPaginationActionsTable(props) {
     setPage(0);
   };
 
-//   getSingleRecipeIngredient(props.recipeID).then((res) => {
-//     const ingrediventDiv = res.map((x) => (
-//       <TableRow key={x.name}>
-//         <TableCell component="th" scope="row">
-//           {x.ingredient}
-//         </TableCell>
-//         <TableCell align="right">{x.quantity}</TableCell>
-//         <TableCell align="right">{x.unit}</TableCell>
-//       </TableRow>
-//       // <tr>
-//       //   <td>{x.quantity}</td>
-//       //   <td>{x.unit}</td>
-//       //   <td>{x.ingredient}</td>
-//       // </tr>
-//     ));
-//     console.log(ingrediventDiv);
-//     setIngredients({ ingredients: ingrediventDiv });
-//     console.log(typeof ingredients);
-//   });
-
   return (
-    <TableContainer component={Paper} style={{width:"700px", marginTop:"12px", marginLeft:"80px"}}>
+    <TableContainer component={Paper} style={{ width: "700px", marginTop: "12px", marginLeft: "80px" }}>
       <Table className={classes.table} aria-label="custom pagination table">
         <TableHead>
-          <TableRow style={{backgroundColor:"#9E4244"}}>
-            <TableCell align="center" style={{border:"2px solid white", color:"white", fontFamily:"Puata One", fontSize:"15px"}}>Ingredients</TableCell>
-            <TableCell align="center" style={{border:"2px solid white", color:"white", fontFamily:"Puata One", fontSize:"15px"}}>Quantity</TableCell>
-            <TableCell align="center" style={{border:"2px solid white", color:"white", fontFamily:"Puata One", fontSize:"15px"}}>Unit</TableCell>
+          <TableRow style={{ backgroundColor: "#9E4244" }}>
+            <TableCell align="center" style={{ border: "2px solid white", color: "white", fontFamily: "Puata One", fontSize: "15px" }}>Ingredients</TableCell>
+            <TableCell align="center" style={{ border: "2px solid white", color: "white", fontFamily: "Puata One", fontSize: "15px" }}>Quantity</TableCell>
+            <TableCell align="center" style={{ border: "2px solid white", color: "white", fontFamily: "Puata One", fontSize: "15px" }}>Unit</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -160,13 +140,13 @@ export default function CustomPaginationActionsTable(props) {
             : rows
           ).map((row) => (
             <TableRow key={row.ingredient}>
-              <TableCell style={{border:"2px solid white", width: 230, backgroundColor:"#F0AB9F", color:"white", fontFamily:"Puata One", fontSize:"15px"}} component="th" scope="row" align="center">
+              <TableCell style={{ border: "2px solid white", width: 230, backgroundColor: "#F0AB9F", color: "white", fontFamily: "Puata One", fontSize: "15px" }} component="th" scope="row" align="center">
                 {row.ingredient}
               </TableCell>
-              <TableCell style={{border:"2px solid white", width: 230, backgroundColor:"#B6666F", color:"white", fontFamily:"Puata One", fontSize:"15px"}} align="center">
+              <TableCell style={{ border: "2px solid white", width: 230, backgroundColor: "#B6666F", color: "white", fontFamily: "Puata One", fontSize: "15px" }} align="center">
                 {row.quantity}
               </TableCell>
-              <TableCell style={{border:"2px solid white", width: 230, backgroundColor:"#B6666F", color:"white", fontFamily:"Puata One", fontSize:"15px"}} align="center">
+              <TableCell style={{ border: "2px solid white", width: 230, backgroundColor: "#B6666F", color: "white", fontFamily: "Puata One", fontSize: "15px" }} align="center">
                 {row.unit}
               </TableCell>
             </TableRow>
@@ -193,7 +173,7 @@ export default function CustomPaginationActionsTable(props) {
               onChangePage={handleChangePage}
               onChangeRowsPerPage={handleChangeRowsPerPage}
               ActionsComponent={TablePaginationActions}
-              style={{backgroundColor:"#9E4244", color:"white", fontFamily:"Puata One"}}
+              style={{ backgroundColor: "#9E4244", color: "white", fontFamily: "Puata One" }}
             />
           </TableRow>
         </TableFooter>

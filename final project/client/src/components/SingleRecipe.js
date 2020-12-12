@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React, { Component } from "react";
-import { getSingleRecipeIngredient, getSingleRecipeInfo } from "./getData";
+import { getSingleRecipeIngredient, getSingleRecipeInfo, getRecommendBasedonSearchedRecipeAuthorandTime } from "./getData";
 import "../style/Recipe.css";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -29,40 +29,46 @@ class SingleRecipe extends Component {
       theRecepieInfo: [],
       ingredients: [],
       instructionState: "",
-      recipeID: ""
+      recipeID: "",
+      recommendAuthorTime: [],
     };
   }
 
   componentDidMount() {
-    const urlArray = window.location.href.split("/");
-    const recipeIDTemp = urlArray[urlArray.length - 1];
-    const recipeID = decodeURI(recipeIDTemp);
-    this.setState({recipeID: recipeID});
-    console.log(recipeID);
-    this.setState({ theRecepie: recipeID });
-    getSingleRecipeIngredient(recipeID).then((res) => {
+
+    const queryString = window.location.search;
+    // const recipeIDTemp = urlArray[urlArray.length - 1];
+    // const recipeID = decodeURI(recipeIDTemp);
+    // console.log(recipeID);
+    const urlParams = new URLSearchParams(queryString);
+    console.log(urlParams);
+    const recipeIDTemp = urlParams.get('id');
+    const author = urlParams.get('author');
+    const totaltime = urlParams.get('totaltime');
+    this.setState({ recipeID: recipeIDTemp });
+    getRecommendBasedonSearchedRecipeAuthorandTime(author, totaltime).then((res) => {
+      console.log(res);
+      const recommendAuthorTimeTemp = res.map((ele) => {
+        return (
+          <div>
+            <p style={{ marginTop: "40px", marginLeft: "70px", marignBottom: "0px", color: "white", fontSize: "20px" }}> {ele["Recipe Name"]}</p>
+            <img style={{ marginLeft: "14%", marginTop: "10px", width: "93%", height: "70%", borderRadius: "10%" }} src={ele["Recipe Photo"]} />
+          </div >
+        )
+      })
+
+      this.setState({ recommendAuthorTime: recommendAuthorTimeTemp });
+    });
+
+
+
+    getSingleRecipeIngredient(recipeIDTemp).then((res) => {
       console.log(res[0].quantity);
       console.log(res[0].unit);
       console.log(res[0].ingredient);
       console.log(res);
-      const ingrediventDiv = res.map((x) => (
-        <TableRow key={x.name}>
-          <TableCell component="th" scope="row">
-            {x.ingredient}
-          </TableCell>
-          <TableCell align="right">{x.quantity}</TableCell>
-          <TableCell align="right">{x.unit}</TableCell>
-        </TableRow>
-        // <tr>
-        //   <td>{x.quantity}</td>
-        //   <td>{x.unit}</td>
-        //   <td>{x.ingredient}</td>
-        // </tr>
-      ));
-      console.log(ingrediventDiv);
-      this.setState({ ingredients: ingrediventDiv });
     });
-    getSingleRecipeInfo(recipeID).then((res) => {
+    getSingleRecipeInfo(recipeIDTemp).then((res) => {
       //   console.log(res[0].RecipeID);
       //   console.log(res[0]["Recipe Name"]);
       //   console.log(res[0]["Recipe Photo"]);
@@ -72,23 +78,23 @@ class SingleRecipe extends Component {
       //   console.log(res[0].Cook_Time);
       //   console.log(res[0].Total_Time);
       const instruction = res[0].Directions.split("**");
-      console.log(instruction);
+      // console.log(instruction);
       const theRecepieInfoTemp = (
         <div>
-          <div style={{fontFamily:"Patua One"}}>
-            {/* <div>{`RecipeID: ${res[0].RecipeID}`}</div> */}
-            <div style={{marginBottom:"2px, solid, red", color:"#FEF2F2", paddingTop:"49px", paddingLeft:"5%", paddingBottom:"10px", fontSize:"30px"}}>{`${res[0]["Recipe Name"]}`}</div>
+          <div style={{ fontFamily: "Patua One" }}>
+            <div style={{ marginBottom: "2px, solid, red", color: "#FEF2F2", paddingTop: "49px", paddingLeft: "5%", paddingBottom: "10px", fontSize: "30px" }}>{`${res[0]["Recipe Name"]}`}</div>
           </div>
-          <Grid container style={{marginLeft:"10px", marginTop:"30px", backgroundImage: `url(${singleRecipe1})`, backgroundSize: "100% 100%", backgroundRepeat: "no-repeat", width:"100%", height:"410px"}}>
+          <Grid container style={{ marginLeft: "10px", marginTop: "30px", backgroundImage: `url(${singleRecipe1})`, backgroundSize: "100% 100%", backgroundRepeat: "no-repeat", width: "100%", height: "410px" }}>
             <Grid item xs={4}>
-              <img style={{marginLeft:"14%", marginTop:"28px", width: "93%", height: "70%", borderRadius: "10%"}} src={res[0]["Recipe Photo"]} />
-              <div style={{color:"white", marginLeft:"15%", marginTop:"30px",fontSize:"20px", fontFamily:"Patua One"}}>{`Recipe Name: ${res[0]["Recipe Name"]}`}</div>
-              <div style={{color:"white", marginLeft:"15%", fontSize:"20px", fontFamily:"Patua One"}}>{`Author: ${res[0].Author}`}</div>
+              <img style={{ marginLeft: "14%", marginTop: "28px", width: "93%", height: "70%", borderRadius: "10%" }} src={res[0]["Recipe Photo"]} />
+              <div style={{ color: "white", marginLeft: "15%", marginTop: "30px", fontSize: "20px", fontFamily: "Patua One" }}>{`Recipe Name: ${res[0]["Recipe Name"]}`}</div>
+              <div style={{ color: "white", marginLeft: "15%", fontSize: "20px", fontFamily: "Patua One" }}>{`Author: ${res[0].Author}`}</div>
             </Grid>
             <Grid item xs={8}>
               <IngredientsTable recipeID={this.state.recipeID} />
             </Grid>
           </Grid>
+
         </div>
       );
       const instructionDiv = instruction
@@ -106,55 +112,14 @@ class SingleRecipe extends Component {
         <PageNavbar />
         <div className="content" style={{}}>
           <div>{theRecepieInfo}</div>
-          <p style={{marginTop:"40px", marginLeft:"70px", marignBottom:"0px"}}>Direction:</p>
+          <p style={{ marginTop: "40px", marginLeft: "70px", marignBottom: "0px" }}>Direction:</p>
           <ol className="directions" style={{}}>{instructionState}</ol>
-
-          {/* <table>
-            <thead>
-              <tr>
-                <th>quantity</th>
-                <th>unit</th>
-                <th>ingredient</th>
-              </tr>
-            </thead>
-            <tbody>{ingredients}</tbody>
-          </table> */}
-
-          {/* <TableContainer component={Paper}>
-            <Table aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Ingredient</TableCell>
-                  <TableCell align="right">Unit</TableCell>
-                  <TableCell align="right">Quantity</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {ingredients}
-              </TableBody>
-            </Table> */}
-            {/* <TableFooter>
-            <TableRow>
-              <TablePagination rowsPerPageOptions={[10, 50]} /> */}
-              {/* <TablePagination
-                rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                colSpan={3}
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                SelectProps={{
-                  inputProps: { 'aria-label': 'rows per page' },
-                  native: true,
-                }}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-                ActionsComponent={TablePaginationActions}
-              /> */}
-            {/* </TableRow>
-          </TableFooter> */}
-          {/* </TableContainer> */}
+          <p> Recommendations based on  Same Author and Similar Cooking Time</p>
+          <div id="recommendAuthorTime">
+            {this.state.recommendAuthorTime}
+          </div>
         </div>
-      </body>
+      </body >
     );
   }
 }

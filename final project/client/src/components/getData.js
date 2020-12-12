@@ -39,7 +39,7 @@ const getReceipe = async (ingredient) => {
 
 const getSingleRecipeIngredient = async (recipeID) => {
   const res = await axios.get(
-    `http://localhost:8080/singlerecipeIngredient/${JSON.stringify(recipeID)}`
+    `http://localhost:8080/foodelements/${JSON.stringify(recipeID)}`
   );
   return res.data;
 };
@@ -49,6 +49,16 @@ const getSingleRecipeInfo = async (recipeID) => {
   );
   return res.data;
 };
+const getRecommendBasedonSearchedRecipeAuthorandTime = async (author, totalTime) => {
+  console.log("getRecommendBasedonSearchedRecipeAuthorandTime");
+  const res = await axios.get(
+    `http://localhost:8080/recommendBasedonSearchedRecipeAuthorandTime/${author}&${totalTime}`
+
+  );
+  return res.data;
+}
+
+
 
 // eslint-disable-next-line import/prefer-default-export
 export {
@@ -56,4 +66,5 @@ export {
   getReceipe,
   getSingleRecipeIngredient,
   getSingleRecipeInfo,
+  getRecommendBasedonSearchedRecipeAuthorandTime,
 };
