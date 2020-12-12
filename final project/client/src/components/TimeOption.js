@@ -3,19 +3,18 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint no-param-reassign: ["error", { "props": false }] */
 /* eslint-disable no-unused-vars */
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import Chip from '@material-ui/core/Chip';
 import Autocomplete,{createFilterOptions} from '@material-ui/lab/Autocomplete';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import PropTypes from 'prop-types';
 import {fetchIngredient} from "./getData";
 import "../style/IngredientOption.css";
 
 const useStyles = makeStyles((theme) => ({
   noOptions: {
-    background: "#B6666F",
+    background: "#D1A080",
     fontFamily: "Patua One",
     color: "white"
   },
@@ -33,18 +32,19 @@ const useStyles = makeStyles((theme) => ({
       border:'5px solid'
     },
     "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-      borderColor: "#B6666F",
+      borderColor: "#D1A080",
       border:'5px solid'
     },
     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-      borderColor: "#B6666F",
+      borderColor: "#D1A080",
       border:'5px solid'
     },
     "& .MuiOutlinedInput-input": {
       color: "white",
+      // borderBottom: 0
     },
     "&:hover .MuiOutlinedInput-input": {
-      color: "#B6666F"
+      color: "#D1A080"
     },
     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input": {
       color: "white"
@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
       fontSize:17
     },
     "&:hover .MuiInputLabel-outlined": {
-      color: "#B6666F",
+      color: "#D1A080",
       fontFamily: "Patua One",
       fontSize:17
     },
@@ -70,57 +70,46 @@ const useStyles = makeStyles((theme) => ({
 
 const filter = createFilterOptions();
 
-const DifficultyOption = (props) => {
+
+const TimeOption = () => {
   const [tags, setTags] = useState([]);
   const classes = useStyles();
-
-  useEffect(() => {
-    props.onSelectDifficulty(tags);
-    console.log('state changed', tags);
-  }, [tags]); 
-    
-  const onTagsChange = async (event, values) => {
-    setTags({
-      tags: values
-    });
-    console.log("tags", tags);
-  }
 
   return (
     <Autocomplete
       style={{ 
         color: "white"}}
-      options={difficulties}
+      options={timeOptions}
       getOptionLabel={option => option.title}
-      onChange={onTagsChange}
       renderInput={params => (
         <div style={{width:"30%", padding:50, paddingBottom:60, left: "58.4%", top: "50%", position:"absolute", transform: "translate(-50%, -50%)"}}>
           <TextField
             {...params}
             variant="outlined"
             style={{color:"white",fontFamily:"Patua One", borderBottom: 0}}
-            label="Recipe Difficulty"
-            placeholder="Recipe Difficulty"
+            label="Cooking Time"
+            placeholder="Cooking Time"
             fullWidth
             classes={{root:classes.outlineRoot}}
             multiline
           />
         </div>
       )}
-      ListboxProps={{style:{backgroundColor:"#B6666F", color:"white", fontFamily:"Patua One"}}}
+      ListboxProps={{style:{backgroundColor:"#D1A080", color:"white", fontFamily:"Patua One"}}}
       noOptionsText="No Option"
       classes={{noOptions:classes.noOptions, input:classes.input, root:classes.root}}
     />
   );
 }
-
-DifficultyOption.propTypes = {
-  onSelectDifficulty: PropTypes.func.isRequired,
-};
-
-export default DifficultyOption;
-const difficulties = [
-  { title: 'easy' },
-  { title: 'medium' },
-  { title: 'hard' },
+export default TimeOption;
+const timeOptions = [
+  { title: '< 30min' },
+  { title: '30min' },
+  { title: '45min' },
+  { title: '1h' },
+  { title: '1h15min' },
+  { title: '1h30min' },
+  { title: '1h45min' },
+  { title: '2h' },
+  { title: '>2h' }
 ];

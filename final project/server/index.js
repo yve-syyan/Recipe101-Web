@@ -21,8 +21,9 @@ app.post("/register", routes.registerAccount);
 app.post("/login", routes.loginAccount);
 
 app.get("/receipebyingredient/:food", routes.getReceipe);
-
-// app.get("/recipeIngredient/:recipeid", routes.getSingleRecipeIngredients);
+app.get("/receipebydifficulty/:difficulty", routes.getReceipe2);
+// app.get("/receipebytime/:time", routes.getReceipe3);
+app.get("/recipeIngredient/:recipeid", routes.getSingleRecipeIngredients);
 app.get("/foodelements/:recipeid", routes.getSingleRecipeIngredients);
 app.get("/singlerecipeinfo/:recipeid", routes.getSingleRecipeInfo);
 

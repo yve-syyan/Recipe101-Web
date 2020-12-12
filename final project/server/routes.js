@@ -82,6 +82,71 @@ LIMIT 5`;
   });
 }
 
+function getReceipe2(req, res) {
+  console.log("get recipe by difficulty");
+ console.log(req.params.difficulty);
+  
+  const query = `WITH avg_rating AS (
+    SELECT avg(rate) FROM reviews_cleaned
+   ), negative_user AS(
+    SELECT profileID, avg(rate) as user_avg_rate
+       FROM (SELECT profileID, rate FROM reviews_cleaned) AS RC
+       GROUP BY profileID
+       HAVING avg(rate)<=(SELECT * FROM avg_rating)
+   ), recipe_ratings AS(
+    SELECT RecipeID, avg(Rate) as avg_rate
+       FROM reviews_cleaned RC RIGHT JOIN negative_user NU ON RC.profileID=NU.profileID AND RC.rate>NU.user_avg_rate
+       GROUP BY RecipeID
+   ), recipe_difficulty AS(
+    SELECT RR.RecipeID, 
+        CASE WHEN Total_Time<30 AND COUNT(IR.ingredient_id)<10 THEN 'easy'
+          WHEN Total_Time<30 AND COUNT(IR.ingredient_id)<20 THEN 'medium'
+                   ELSE 'hard' END as difficulty,
+        RR.avg_rate AS rating
+       FROM recipe_ratings RR 
+      JOIN (SELECT RecipeID, \`Recipe Name\`, \`Recipe Photo\`, Author, Total_Time FROM recipes_cleaned) RC ON RR.recipeID=RC.recipeID
+      RIGHT JOIN (SELECT recipeID, ingredient_id FROM ingredient_recipe) IR ON RR.recipeID=IR.recipeID
+       GROUP BY RR.RecipeID, RC.Total_Time, RR.avg_rate
+   )
+    SELECT *
+       FROM recipe_difficulty RD LEFT JOIN recipes_cleaned RC ON RD.recipeID=RC.recipeID
+       WHERE difficulty= '${req.params.difficulty}'
+       ORDER BY rating DESC LIMIT 10;`
+  console.log(query);
+  // const query2 = `SELECT RecipeID, \`Recipe Name\`, \`Recipe Photo\`, Author, Ingredients, Directions, Total_Time FROM recipes_cleaned WHERE RecipeID in (SELECT RecipeID FROM (SELECT RecipeID, GROUP_CONCAT(ingredient SEPARATOR 	',') FROM ingredient_recipe GROUP BY RecipeID) X WHERE ingredients LIKE '%${ingredient}%') LIMIT 5;`;
+  connection.query(query, function (err, rows, fields) {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      console.log("xxx");
+      return;
+    } else {
+      console.log(rows);
+      res.json(rows);
+    }
+  });
+}
+
+// function getReceipe3(req, res) {
+//   console.log("get recipe by difficulty");
+//  console.log(req.params.time);
+  
+//   const query = `SELECT RecipeID, \`Recipe Name\`, \`Recipe Photo\`, Author, Ingredients, Directions, Total_Time
+//   FROM recipes_cleaned
+//   WHERE Total_Time BETWEEN 0 AND '${req.params.time}'
+//   LIMIT 20;`
+//   console.log(query);
+//   connection.query(query, function (err, rows, fields) {
+//     if (err) {
+//       res.status(400).json({ error: err.message});
+//       console.log("xxx");
+//       return;
+//     } else {
+//       console.log(rows);
+//       res.json(rows);
+//     }
+//   });
+// }
+
 function getSingleRecipeIngredients(req, res) {
   const id = JSON.parse(req.params.recipeid);
   // console.log(id);
@@ -233,6 +298,7 @@ module.exports = {
   registerAccount: registerAccount,
   loginAccount: loginAccount,
   getReceipe: getReceipe,
+  getReceipe2: getReceipe2,
   getSingleRecipeIngredients: getSingleRecipeIngredients,
   getSingleRecipeInfo: getSingleRecipeInfo,
   getRecommendBasedonSearchedRecipeAuthorandTime: getRecommendBasedonSearchedRecipeAuthorandTime,

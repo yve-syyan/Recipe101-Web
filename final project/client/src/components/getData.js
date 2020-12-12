@@ -37,6 +37,14 @@ const getReceipe = async (ingredient) => {
   return res.data;
 };
 
+const getReceipe2 = async (difficulty) => {
+  console.log("getRecipe2");
+  const res = await axios.get(
+    `http://localhost:8080/receipebydifficulty/${difficulty}`
+  );
+  return res.data;
+}
+
 const getSingleRecipeIngredient = async (recipeID) => {
   const res = await axios.get(
     `http://localhost:8080/foodelements/${JSON.stringify(recipeID)}`
@@ -99,5 +107,6 @@ export {
   getRecommendBasedonSearchedRecipeAuthorandTime,
   getRecommendBaseonSearchRecipeSearchedRecipeIngredients,
   getRecommendAuthorsBasedonPopularity,
-  getRecipebaseOnAuthorChoice
+  getRecipebaseOnAuthorChoice,
+  getReceipe2
 };
