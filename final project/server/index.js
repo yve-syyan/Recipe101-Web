@@ -35,7 +35,15 @@ app.get("/recommendAuthorsBasedonPopularity", routes.getRecommendAuthorsBasedonP
 
 app.get("/recommendRecipebaseOnAuthorChoice/:author", routes.getRecommendRecipebaseOnAuthorChoice);
 
-app.get("/getReciepbaseonTime/:time", routes.getReciepbaseonTime)
+app.get("/getReciepbaseonTime/:time", routes.getReciepbaseonTime);
+
+app.get("/checkfavorite/:id&:name", routes.checkfavorite);
+
+app.get("/deletefavorite/:id&:name", routes.deletefavorite);
+
+app.get("/addfavorite/:id&:name", routes.addfavorite);
+
+app.get("/retrieveallfavorite/:name", routes.retrieveallfavorite);
 
 app.listen(8080, () => {
   console.log(`Server listening on PORT 8080`);

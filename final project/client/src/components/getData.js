@@ -107,6 +107,35 @@ const getReceipe3 = async (time) => {
   return res.data;
 }
 
+const checkfavorite = async (id, name) => {
+  const res = await axios.get(
+    `http://localhost:8080/checkfavorite/${id}&${name}`
+  );
+
+  return res.data;
+}
+const deleteFavorite = async (id, name) => {
+  const res = await axios.get(
+    `http://localhost:8080/deletefavorite/${id}&${name}`
+  );
+
+  return res.data;
+}
+
+const addFavorite = async (id, name) => {
+  const res = await axios.get(
+    `http://localhost:8080/addfavorite/${id}&${name}`
+  );
+
+  return res.data;
+}
+const retrieveAllFavorite = async (name) => {
+  const res = await axios.get(
+    `http://localhost:8080/retrieveallfavorite/${name}`
+  );
+
+  return res.data;
+}
 
 
 // eslint-disable-next-line import/prefer-default-export
@@ -120,5 +149,10 @@ export {
   getRecommendAuthorsBasedonPopularity,
   getRecipebaseOnAuthorChoice,
   getReceipe2,
-  getReceipe3
+  getReceipe3,
+  checkfavorite,
+  deleteFavorite,
+  addFavorite,
+  retrieveAllFavorite
+
 };

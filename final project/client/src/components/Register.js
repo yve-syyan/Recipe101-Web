@@ -49,7 +49,7 @@ class RegistrationForm extends Component {
               const RegisterDiv = document.getElementById("RegisterDiv");
               RegisterDiv.appendChild(LinktoLogin);
               setTimeout(() => {
-                window.top.location = "http://localhost:3000";
+                window.top.location = "http://localhost:3000/login";
               }, 2000);
             } else if (res.status === 400) {
               const errorMessage = document.createElement("p");

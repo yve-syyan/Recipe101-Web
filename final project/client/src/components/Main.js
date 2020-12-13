@@ -13,6 +13,7 @@ import Register from "./Register";
 import Search from "./Search";
 import SingleRecipe from "./SingleRecipe";
 import Best from "./Best";
+import Collection from "./Collection";
 
 export default class Main extends React.Component {
   constructor(props) {
@@ -61,6 +62,7 @@ export default class Main extends React.Component {
             <Route exact path="/search" component={this.getSearch} />
             <Route path="/best" component={Best} />
             <Route path="/learnmore" component={SingleRecipe} />
+            <Route path="/collection" component={Collection} />
 
           </Switch>
         </Router>

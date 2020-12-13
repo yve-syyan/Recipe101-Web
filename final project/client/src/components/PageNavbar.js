@@ -14,9 +14,14 @@ export default class PageNavbar extends React.Component {
       navDivs: [],
     };
   }
+  handleLogout() {
+    console.log("xx");
+    localStorage.clear();
+    window.top.location = "http://localhost:3000/login";
+  }
 
   componentDidMount() {
-    const pageList = ["home", "search", "best", "logout"];
+    const pageList = ["home", "search", "best", "collection"];
 
     const navbarDivs = pageList.map((page, i) => {
       // eslint-disable-next-line react/prop-types
@@ -48,14 +53,16 @@ export default class PageNavbar extends React.Component {
               src="https://img.icons8.com/cotton/64/000000/bread-and-rye--v1.png"
               width="45"
               height="45"
-              className="d-inline-block icon" 
+              className="d-inline-block icon"
               loading="lazy"
             />
             <p className="web-name">RecipeGo</p>
           </a>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav ml-auto">{this.state.navDivs}</div>
+            <button onClick={() => this.handleLogout()}> Logout</button>
           </div>
+
         </nav>
       </div>
     );

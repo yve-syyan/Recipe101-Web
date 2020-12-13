@@ -293,7 +293,7 @@ function getReciepbaseonTime(req, res) {
   connection.query(query, function (err, rows, fields) {
     if (err) {
       res.status(400).json({ error: err.message });
-      console.log("get Recommend Authors Based on Time Fails");
+      console.log("get Recommend Authors Based on Time Failed");
       return;
     } else {
       // console.log(rows);
@@ -301,7 +301,82 @@ function getReciepbaseonTime(req, res) {
     }
   });
 }
+function checkfavorite(req, res) {
+  console.log("check favorite ");
+  const id = req.params.id;
+  const name = req.params.name;
+  const query = `SELECT * 
+  FROM User_favorite
+  WHERE  user_id = '${name}' And favorite_recipe_id = '${id}' 
+  `;
+  console.log(query);
+  connection.query(query, function (err, rows, fields) {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      console.log("check favorite Failed");
+      return;
+    } else {
+      console.log(rows);
+      res.json(rows);
+    }
+  });
+}
+function deletefavorite(req, res) {
+  console.log("delete favorite ");
+  const id = req.params.id;
+  const name = req.params.name;
+  const query = `
+  DELETE FROM User_favorite WHERE user_id = '${name}' And favorite_recipe_id = '${id}';
+  `;
+  console.log(query);
+  connection.query(query, function (err, rows, fields) {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      console.log("delete favorite Failed");
+      return;
+    } else {
+      return;
+    }
+  });
+}
 
+function addfavorite(req, res) {
+  console.log("add favorite ");
+  const id = req.params.id;
+  const name = req.params.name;
+  const query =
+    `INSERT INTO User_favorite(\`user_id\`, \`favorite_recipe_id\`) VALUES('${name}', '${id}');`;
+  console.log(query);
+  connection.query(query, function (err, rows, fields) {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      console.log("add favorite Failed");
+      return;
+    } else {
+      return;
+    }
+  });
+}
+function retrieveallfavorite(req, res) {
+  console.log("retrieve all favorite");
+  const name = req.params.name;
+  const query = `
+  SELECT favorite_recipe_id
+  FROM User_favorite
+  where user_id = '${name}';
+  `;
+  console.log(query);
+  connection.query(query, function (err, rows, fields) {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      console.log("retrieve all favorite Failed");
+      return;
+    } else {
+      console.log(rows);
+      res.json(rows);
+    }
+  });
+}
 
 
 // The exported functions, which can be accessed in index.js.
@@ -316,5 +391,9 @@ module.exports = {
   getRecommendBaseonSearchRecipeSearchedRecipeIngredients: getRecommendBaseonSearchRecipeSearchedRecipeIngredients,
   getRecommendAuthorsBasedonPopularity: getRecommendAuthorsBasedonPopularity,
   getRecommendRecipebaseOnAuthorChoice: getRecommendRecipebaseOnAuthorChoice,
-  getReciepbaseonTime: getReciepbaseonTime
+  getReciepbaseonTime: getReciepbaseonTime,
+  checkfavorite: checkfavorite,
+  deletefavorite: deletefavorite,
+  addfavorite: addfavorite,
+  retrieveallfavorite: retrieveallfavorite
 };

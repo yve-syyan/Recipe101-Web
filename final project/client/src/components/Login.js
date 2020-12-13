@@ -50,8 +50,9 @@ export default class Login extends React.Component {
             loginMessage.setAttribute("style", "color: green;");
             const login = document.getElementById("login");
             login.appendChild(loginMessage);
-
+            localStorage.setItem("user", `${this.state.username}`);
             handleLogin("tokens");
+
 
             // document.getElementById("loginMessage").remove();
           } else {
