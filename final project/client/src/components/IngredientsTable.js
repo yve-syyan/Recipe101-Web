@@ -125,7 +125,7 @@ export default function CustomPaginationActionsTable(props) {
   };
 
   return (
-    <TableContainer component={Paper} style={{ width: "650px", marginTop: "12px", marginLeft: "80px" }}>
+    <TableContainer component={Paper} style={{ width: "654px", marginTop: "12px", marginLeft: "80px", backgroundColor: "#9E4244", borderRight: "2px solid white", borderLeft: "2px solid white"}}>
       <Table className={classes.table} aria-label="custom pagination table">
         <TableHead>
           <TableRow style={{ backgroundColor: "#9E4244" }}>
@@ -140,7 +140,7 @@ export default function CustomPaginationActionsTable(props) {
             : rows
           ).map((row) => (
             <TableRow key={row.ingredient}>
-              <TableCell style={{ border: "2px solid white", width: 250, backgroundColor: "#F0AB9F", color: "white", fontFamily: "Puata One", fontSize: "15px" }} component="th" scope="row" align="center">
+              <TableCell style={{ border: "2px solid white", width: 244, backgroundColor: "#F0AB9F", color: "white", fontFamily: "Puata One", fontSize: "15px" }} component="th" scope="row" align="center">
                 {row.ingredient}
               </TableCell>
               <TableCell style={{ border: "2px solid white", width: 200, backgroundColor: "#B6666F", color: "white", fontFamily: "Puata One", fontSize: "15px" }} align="center">
@@ -161,7 +161,7 @@ export default function CustomPaginationActionsTable(props) {
         <TableFooter>
           <TableRow>
             <TablePagination
-              rowsPerPageOptions={[5, 8, 25, { label: 'All', value: -1 }]}
+              rowsPerPageOptions={[5, 8, 12, { label: 'All', value: -1 }]}
               colSpan={3}
               count={rows.length}
               rowsPerPage={rowsPerPage}
@@ -173,7 +173,7 @@ export default function CustomPaginationActionsTable(props) {
               onChangePage={handleChangePage}
               onChangeRowsPerPage={handleChangeRowsPerPage}
               ActionsComponent={TablePaginationActions}
-              style={{ backgroundColor: "#9E4244", color: "white", fontFamily: "Puata One" }}
+              style={{ backgroundColor: "#9E4244", color: "black", fontFamily: "Puata One" }}
             />
           </TableRow>
         </TableFooter>
