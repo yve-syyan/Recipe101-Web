@@ -1,25 +1,47 @@
 #table{
     max-width:500px;
 }
-h3{
+/* h3{
     margin-left:50px;
-}
+} */
 #leaderBoard{
     display: flex;
     flex-direction: row;
     margin-left:50px;
 }
-#authorMenuImg{
-    min-width: 200px;
-    max-width: 300px;
+/* #authorMenuImg{
+    width:3px;
     min-height: 200px;
     max-height: 300px;
-}
+} */
 
 #authorMenu{
-margin-top: 50px;
 display: flex;
 flex-direction: column;
-height:500px;
+height:570px;
 overflow: scroll;
+overflow-x: hidden;
 }
+
+#authorMenu::-webkit-scrollbar {
+    width: 0.7em;
+    background: transcript;
+  }
+#authorMenu::-webkit-scrollbar-thumb {
+    background: "#9E4244";
+    height:3px;
+}
+  
+#authorMenu::-webkit-scrollbar-track-piece
+{
+     display:none;
+}
+
+.fullpage2 {
+    display: block;
+    height: 600px;
+    width: 100%;
+    max-width: 1300px;
+    margin-left: 0;
+    margin-right: 0;
+  } 

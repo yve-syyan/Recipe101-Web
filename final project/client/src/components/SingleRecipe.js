@@ -9,35 +9,17 @@ import {
   deleteFavorite,
   addFavorite
 } from "./getData";
-
 import "../style/Recipe.css";
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import Grid from "@material-ui/core/Grid";
-import Paper from '@material-ui/core/Paper';
-import TablePagination from '@material-ui/core/TablePagination'
-import TableFooter from '@material-ui/core/TableFooter';
-import IconButton from '@material-ui/core/IconButton';
-import FirstPageIcon from '@material-ui/icons/FirstPage';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import LastPageIcon from '@material-ui/icons/LastPage';
 import IngredientsTable from './IngredientsTable';
 import PageNavbar from "./PageNavbar";
-import singleRecipe1 from "../images/SingleRecipe1.png";
-import backgroundRecipe from "../images/backgroundRecipe.png";
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 class SingleRecipe extends Component {
   constructor(props) {
     super(props);
@@ -50,6 +32,7 @@ class SingleRecipe extends Component {
       recommendAuthorTime: [],
       recommendBaseOnIngredient: [],
       color: "black",
+      iconState: [<FavoriteBorderOutlinedIcon fontSize="large" style={{color: "white" }} />]
     };
   }
   hanldeFavoriteChange() {
@@ -60,9 +43,11 @@ class SingleRecipe extends Component {
     const name = window.localStorage.getItem('user');
     if (this.state.color == "black") {
       this.setState({ color: "red" })
+      this.setState({ iconState: [<FavoriteIcon fontSize="large" style={{color: "red" }} />]})
       addFavorite(recipeIDTemp, name);
     } else if (this.state.color == "red") {
       this.setState({ color: "black" })
+      this.setState({ iconState: [<FavoriteBorderOutlinedIcon fontSize="large" style={{color: "white" }} />]})
       deleteFavorite(recipeIDTemp, name);
     }
   }
@@ -84,7 +69,8 @@ class SingleRecipe extends Component {
     console.log(name);
     checkfavorite(recipeIDTemp, name).then((res) => {
       if (res.length !== 0) {
-        this.setState({ color: "red" })
+        this.setState({ iconState: [<FavoriteIcon fontSize="large" style={{color: "red" }} />]});
+        this.setState({ color: "red" });
       };
     })
     getRecommendBasedonSearchedRecipeAuthorandTime(author, totaltime).then((res) => {
@@ -96,7 +82,7 @@ class SingleRecipe extends Component {
           let link = `http://localhost:3000/learnmore/?id=${ele["RecipeID"]}&author=${ele["Author"]}&totaltime=${ele["Total_Time"]}`
           return (
             <div style={{ border: "0px solid white" }}>
-              <Card style={{ backgroundColor: "#9E4244", color: "white" }}>
+              <Card style={{ backgroundColor: "#9E4244", color: "white"}}>
                 <CardActionArea style={{}}>
                   <CardMedia>
                     {/* src = "https://images.unsplash.com/photo-1519148246701-3dc1897a7a21?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1868&q=80" */}
@@ -170,11 +156,11 @@ class SingleRecipe extends Component {
       const theRecepieInfoTemp = (
         <div>
           <div style={{ fontFamily: "Patua One" }}>
-            <div style={{ marginBottom: "2px, solid, red", color: "#FEF2F2", paddingTop: "49px", paddingLeft: "5%", paddingBottom: "10px", fontSize: "30px" }}>{`${res[0]["Recipe Name"]}`}</div>
+            <div style={{ marginBottom: "20px", color: "#FEF2F2", paddingTop: "10px", paddingLeft: "5%", paddingBottom: "10px", fontSize: "30px" }}>{`${res[0]["Recipe Name"]}`}</div>
           </div>
-          <Grid container style={{ marginLeft: "10px", marginTop: "30px", backgroundSize: "100% 100%", backgroundRepeat: "no-repeat", width: "100%" }}>
+          <Grid container style={{ marginTop: "0px", marginLeft: "10px", backgroundSize: "100% 100%", backgroundRepeat: "no-repeat", width: "96%" }}>
             <Grid item xs={4}>
-              <img style={{ marginLeft: "14%", marginTop: "12px", width: "93%", height: "300px", borderRadius: "10%" }} src={res[0]["Recipe Photo"]} />
+              <img style={{ marginLeft: "12.5%", marginTop: "12px", width: "93%", height: "300px", borderRadius: "10%" }} src={res[0]["Recipe Photo"]} />
               <div style={{ color: "white", marginLeft: "15%", marginTop: "30px", fontSize: "20px", fontFamily: "Patua One" }}>{`Recipe Name: ${res[0]["Recipe Name"]}`}</div>
               <div style={{ color: "white", marginLeft: "15%", fontSize: "20px", fontFamily: "Patua One" }}>{`Author: ${res[0].Author}`}</div>
             </Grid>
@@ -197,18 +183,26 @@ class SingleRecipe extends Component {
     return (
       <body>
         <PageNavbar />
-        <div className="content" style={{}}>
-          <p>Favorite: </p> <button onClick={() => { this.hanldeFavoriteChange() }}><FavoriteIcon style={{ color: `${this.state.color}` }} /></button>
+        <div className="content" style={{border:"20px solid #E4C2C1"}}>
+          <p style={{marginLeft:"84%", marginTop: "30px", marginBottom:"0px"}}>Favorite: </p> 
+          {/* <button style={{backgroundColor:"transparent", border:"0px solid transparent"}} onClick={() => { this.hanldeFavoriteChange() }}><FavoriteIcon style={{size:"large", color: `${this.state.color}` }} /></button> */}
+          <button style={{marginTop: "30px", paddingRight:"1.3%", backgroundColor:"transparent", border:"0px solid transparent"}} onClick={() => { this.hanldeFavoriteChange() }}>{this.state.iconState}</button>
           <div>{theRecepieInfo}</div>
-          <p style={{ marginTop: "40px", marginLeft: "70px", marignBottom: "0px" }}>Direction:</p>
-          <ol className="directions" style={{ marginBorrom: "0px" }}>{instructionState}</ol>
-          <p style={{ marginTop: "40px", marginLeft: "70px", marignBottom: "0px" }}> Recommendations based on  Same Author and Similar Cooking Time</p>
-          <div id="recommendAuthorTime" style={{ marginTop: "40px", marginLeft: "70px", marignBottom: "0px" }}>
-            {this.state.recommendAuthorTime}
+          <div style={{width:"100%", marginTop:"20px"}}>
+            <p style={{ marignBottom: "0px", marginLeft: "5%" }}>Direction</p>
+            <ol className="directions" style={{ marginBorrom: "0px", width:"90%"}}>{instructionState}</ol>
           </div>
-          <p style={{ marginTop: "40px", marginLeft: "70px", marignBottom: "0px" }}> Recommendations base on 90% Matching Ingredients</p>
-          <div id="recommendAuthorTime" style={{ marginTop: "40px", marginLeft: "70px", marignBottom: "0px" }}>
-            {this.state.recommendBaseOnIngredient}
+          <div style={{borderTop:"2px solid #E4C2C1", width:"90%", marginLeft: "5%", marginTop:"0px", paddingBottom: "40px"}}>
+            <p style={{ marginTop: "40px", marignBottom: "0px" }}> Recommendations based on  Same Author and Similar Cooking Time</p>
+            <div id="recommendAuthorTime" style={{ marginTop: "40px", marignBottom: "40px"}}>
+              {this.state.recommendAuthorTime}
+            </div>
+          </div>
+          <div style={{borderTop:"2px solid #FEF2F2", width:"90%", marginLeft: "5%", marginTop:"0px", paddingBottom: "80px"}}>
+            <p style={{ marginTop: "40px", marignBottom: "0px" }}> Recommendations base on 90% Matching Ingredients</p>
+            <div id="recommendAuthorTime" style={{ marginTop: "40px", marignBottom: "0px"}}>
+              {this.state.recommendBaseOnIngredient}
+            </div>
           </div>
         </div>
       </body >

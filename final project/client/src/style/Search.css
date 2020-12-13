@@ -137,9 +137,24 @@ PageNavbar {
 #recommendAuthorTime{
   display: flex;
   flex-direction: row;
-  min-width: 1250px;
-  max-width: 1250px;
+  width: 100%;
+  max-width: 1200px;
   overflow: scroll;
+  overflow-y: hidden;
+}
+
+#recommendAuthorTime::-webkit-scrollbar {
+  width: 0.7em;
+  background: transcript;
+}
+#recommendAuthorTime::-webkit-scrollbar-thumb {
+  background: "#9E4244";
+  height:3px;
+}
+
+#recommendAuthorTime::-webkit-scrollbar-track-piece
+{
+   display:none;
 }
 
 

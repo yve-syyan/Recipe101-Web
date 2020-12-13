@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
       height:0
     },
     "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-      borderColor: "white",
+      borderColor: "#FEF2F2",
       border:'5px solid'
     },
     "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {

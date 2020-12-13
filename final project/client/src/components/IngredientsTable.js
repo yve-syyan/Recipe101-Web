@@ -91,7 +91,7 @@ function createData(name, calories, fat) {
 
 const useStyles2 = makeStyles({
   table: {
-    width: 700
+    width: 650
     // minWidth: 200,
   },
   "& .MuiTableContainer-root": {
@@ -125,7 +125,7 @@ export default function CustomPaginationActionsTable(props) {
   };
 
   return (
-    <TableContainer component={Paper} style={{ width: "700px", marginTop: "12px", marginLeft: "80px" }}>
+    <TableContainer component={Paper} style={{ width: "650px", marginTop: "12px", marginLeft: "80px" }}>
       <Table className={classes.table} aria-label="custom pagination table">
         <TableHead>
           <TableRow style={{ backgroundColor: "#9E4244" }}>
@@ -140,13 +140,13 @@ export default function CustomPaginationActionsTable(props) {
             : rows
           ).map((row) => (
             <TableRow key={row.ingredient}>
-              <TableCell style={{ border: "2px solid white", width: 230, backgroundColor: "#F0AB9F", color: "white", fontFamily: "Puata One", fontSize: "15px" }} component="th" scope="row" align="center">
+              <TableCell style={{ border: "2px solid white", width: 250, backgroundColor: "#F0AB9F", color: "white", fontFamily: "Puata One", fontSize: "15px" }} component="th" scope="row" align="center">
                 {row.ingredient}
               </TableCell>
-              <TableCell style={{ border: "2px solid white", width: 230, backgroundColor: "#B6666F", color: "white", fontFamily: "Puata One", fontSize: "15px" }} align="center">
+              <TableCell style={{ border: "2px solid white", width: 200, backgroundColor: "#B6666F", color: "white", fontFamily: "Puata One", fontSize: "15px" }} align="center">
                 {row.quantity}
               </TableCell>
-              <TableCell style={{ border: "2px solid white", width: 230, backgroundColor: "#B6666F", color: "white", fontFamily: "Puata One", fontSize: "15px" }} align="center">
+              <TableCell style={{ border: "2px solid white", width: 200, backgroundColor: "#B6666F", color: "white", fontFamily: "Puata One", fontSize: "15px" }} align="center">
                 {row.unit}
               </TableCell>
             </TableRow>

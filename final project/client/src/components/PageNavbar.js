@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/destructuring-assignment */
+/* eslint-disable */
 import React from "react";
 import "../style/PageNavbar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -21,7 +22,7 @@ export default class PageNavbar extends React.Component {
   }
 
   componentDidMount() {
-    const pageList = ["home", "search", "best", "collection"];
+    const pageList = ["home", "search", "best", "collection", "logout"];
 
     const navbarDivs = pageList.map((page, i) => {
       // eslint-disable-next-line react/prop-types
@@ -31,12 +32,20 @@ export default class PageNavbar extends React.Component {
             {page.charAt(0).toUpperCase() + page.substring(1, page.length)}
           </a>
         );
+      } 
+      if (page === "logout") {
+        return (
+          <button className="nav-item nav-link" style={{border:"0px solid transparent", backgroundColor:"transparent", fontFamily:"Patua One"}} onClick={() => this.handleLogout()}>
+            Logout
+          </button>
+        );
+      } else {
+        return (
+          <a className="nav-item nav-link" key={i} href={`/${page}`}>
+            {page.charAt(0).toUpperCase() + page.substring(1, page.length)}
+          </a>
+        );
       }
-      return (
-        <a className="nav-item nav-link" key={i} href={`/${page}`}>
-          {page.charAt(0).toUpperCase() + page.substring(1, page.length)}
-        </a>
-      );
     });
 
     this.setState({
@@ -60,7 +69,6 @@ export default class PageNavbar extends React.Component {
           </a>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav ml-auto">{this.state.navDivs}</div>
-            <button onClick={() => this.handleLogout()}> Logout</button>
           </div>
 
         </nav>

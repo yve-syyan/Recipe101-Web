@@ -3,6 +3,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint no-param-reassign: ["error", { "props": false }] */
 /* eslint-disable no-unused-vars */
+/* eslint-disable */
 import React, { useState, useEffect } from 'react';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
       height: 0
     },
     "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-      borderColor: "white",
+      borderColor: "#FEF2F2",
       border: '5px solid'
     },
     "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
       border: '5px solid'
     },
     "& .MuiOutlinedInput-input": {
-      color: "white",
+      color: "#FEF2F2",
       // borderBottom: 0
     },
     "&:hover .MuiOutlinedInput-input": {
