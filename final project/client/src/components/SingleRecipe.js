@@ -82,21 +82,21 @@ class SingleRecipe extends Component {
           let link = `http://localhost:3000/learnmore/?id=${ele["RecipeID"]}&author=${ele["Author"]}&totaltime=${ele["Total_Time"]}`
           return (
             <div style={{ border: "0px solid white" }}>
-              <Card style={{ backgroundColor: "#9E4244", color: "white"}}>
-                <CardActionArea style={{}}>
-                  <CardMedia>
-                    {/* src = "https://images.unsplash.com/photo-1519148246701-3dc1897a7a21?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1868&q=80" */}
-                    <a href={link} >
+              <a href={link} >
+                <Card style={{ backgroundColor: "#9E4244", color: "white"}}>
+                  <CardActionArea style={{}}>
+                    <CardMedia>
+                      {/* src = "https://images.unsplash.com/photo-1519148246701-3dc1897a7a21?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1868&q=80" */}
                       <img style={{ width: "300px", height: "200px", objectFit: "cover" }} src={ele["Recipe Photo"]} />
-                    </a>
-                  </CardMedia>
-                  <CardContent style={{ width: "300px", height: "100px" }}>
-                    <Typography gutterBottom variant="h5" component="h2" style={{ fontFamily: "Patua One" }}>
-                      {ele["Recipe Name"]}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
+                    </CardMedia>
+                    <CardContent style={{ width: "300px", height: "100px" }}>
+                      <Typography gutterBottom variant="h5" component="h2" style={{ fontFamily: "Patua One" }}>
+                        {ele["Recipe Name"]}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              </a>
               {/* <p style={{ marginTop: "40px", marginLeft: "70px", marignBottom: "0px", color: "white", fontSize: "20px" }}> {ele["Recipe Name"]}</p>      
             <img style={{ marginLeft: "14%", marginTop: "10px", width: "93%", height: "70%", borderRadius: "10%" }} src={ele["Recipe Photo"]} /> */}
             </div >
@@ -120,21 +120,23 @@ class SingleRecipe extends Component {
               <a href={link} >
                 <img style={{ marginLeft: "14%", marginTop: "10px", width: "93%", height: "70%", borderRadius: "10%", "min-width": "200px", "min-height": "200px" }} src={ele["RecipePhoto"]} />
               </a> */}
-              <Card style={{ backgroundColor: "#9E4244", color: "white" }}>
-                <CardActionArea style={{}}>
-                  <CardMedia>
-                    {/* src = "https://images.unsplash.com/photo-1519148246701-3dc1897a7a21?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1868&q=80" */}
-                    <a href={link} >
-                      <img style={{ width: "300px", height: "200px", objectFit: "cover" }} src={ele["RecipePhoto"]} />
-                    </a>
-                  </CardMedia>
-                  <CardContent style={{ width: "300px", height: "100px" }}>
-                    <Typography gutterBottom variant="h5" component="h2" style={{ fontFamily: "Patua One" }}>
-                      {ele["RecipeName"]}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
+              <a href={link} >
+                <Card style={{ backgroundColor: "#9E4244", color: "white" }}>
+                  <CardActionArea style={{}}>
+                    <CardMedia>
+                      {/* src = "https://images.unsplash.com/photo-1519148246701-3dc1897a7a21?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1868&q=80" */}
+                      <a href={link} >
+                        <img style={{ width: "300px", height: "200px", objectFit: "cover" }} src={ele["RecipePhoto"]} />
+                      </a>
+                    </CardMedia>
+                    <CardContent style={{ width: "300px", height: "100px" }}>
+                      <Typography gutterBottom variant="h5" component="h2" style={{ fontFamily: "Patua One" }}>
+                        {ele["RecipeName"]}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              </a>
             </div >
           )
         }
