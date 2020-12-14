@@ -226,13 +226,16 @@ class Collection extends Component {
         return (
             <div>
                 <PageNavbar />
-                <img className="fullpage4" alt="" src={collectionPage} />
-                <div style={{backgroundColor:"#9E4244", fontFamily:"Puata One", color:"white", fontSize:"10px"}}>
-                    <p style={{marginLeft:"7%"}}>{this.state.quote}</p>
+                <div className="button-container container-fluid">
+                    <img src={collectionPage} className="fullpage4" />
                 </div>
-                <div style={{backgroundColor:"#9E4244", paddingLeft:"1%", paddingRight:"1%", paddingBottom:"3%"}}>
-                    {this.state.collections}
+                <div style={{backgroundColor:"#9E4244", fontFamily:"Puata One", color:"white", fontSize:"10px",maxWidth:"1300px", marginLeft:"auto", marginRight:"auto", marginTop:"0px"}}>
+                  <p style={{marginLeft:"7%"}}>{this.state.quote}</p>
                 </div>
+                <div style={{backgroundColor:"#9E4244", paddingLeft:"1%", paddingRight:"1%", paddingBottom:"3%", maxWidth:"1300px", marginLeft:"auto", marginRight:"auto"}}>
+                  {this.state.collections}
+                </div>
+                {/* <img className="fullpage4" alt="" src={collectionPage} /> */}
             </div>
         );
     }

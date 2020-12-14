@@ -112,8 +112,10 @@ class Best extends Component {
         return (
             <div>
                 <PageNavbar />
-                <img className="fullpage2" alt="" src={bestPic} />
-                <div style={{borderLeft:"32px solid #9E4244", borderRight:"32px solid #9E4244", borderBottom:"32px solid #9E4244", marginTop:"0"}}>
+                <div className="button-container container-fluid">
+                    <img src={bestPic} className="fullpage2" />
+                </div>
+                <div style={{maxWidth:"1300px", marginLeft:"auto", marginRight:"auto", borderLeft:"32px solid #9E4244", borderRight:"32px solid #9E4244", borderBottom:"32px solid #9E4244", marginTop:"0"}}>
                     <h3 style={{
                         paddingTop: "40px", marignBottom: "0px", marginTop: "0px", marginLeft:"5%", color: "white", fontFamily:"Patua One", fontSize: "30px"
                     }}>Top 20 Recepie Author</h3>

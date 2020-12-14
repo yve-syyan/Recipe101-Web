@@ -22,6 +22,7 @@ import difficultyImage from "../images/Difficulty.png";
 import recipeGoImage from "../images/Recipego.png";
 import TimeOption from "./TimeOption";
 import "../style/Search.css";
+import { ImageTimer10 } from "material-ui/svg-icons";
 
 export default class Search extends Component {
   constructor(props) {
@@ -263,7 +264,10 @@ export default class Search extends Component {
       <body>
         <div className="searchBoard">
           <PageNavbar />
-          <img className="fullpage2" alt="" src={image0} />
+          <div className="button-container container-fluid">
+            <img src={image0} className="fullpage2" />
+          </div>
+          {/* <img className="fullpage2" alt="" src={image0} /> */}
           <div className="search-container container-fluid">
             <img className="fullpage" style={{ background: "black" }} alt="" src={ingredientImage} />
             <IngredientOption
