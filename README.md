@@ -31,6 +31,45 @@ You can use the username and password we provided or create a new one by going t
 username: Lihanz
 passwaord: abc123
 
+NOTE:
+
+If you counter a problem with the project dependency tree. For me, I previously installed a differernt version of  eslint locally, this might cause the problem. Simply go to /final project/client/node_modules/eslint and delete the file (or other conflict files you might have), then run "npm start" again.
+
+## Depencies:
+Client:
+"@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.56",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "antd": "^3.26.20",
+    "axios": "^0.21.0",
+    "bootstrap": "^4.4.1",
+    "bootstrap-icons": "^1.1.0",
+    "clsx": "^1.1.1",
+    "jquery": "^3.5.1",
+    "material-ui": "^0.20.2",
+    "materialize-css": "^1.0.0-rc.2",
+    "mdbootstrap": "^4.19.1",
+    "mocha": "^7.2.0",
+    "popper.js": "^1.16.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.12.0",
+    "react-bootstrap": "^1.0.0-beta.16",
+    "react-dom": "^16.12.0",
+    "react-dropdown": "^1.6.4",
+    "react-router-dom": "^5.1.2",
+    "react-script": "^2.0.5",
+    "react-scripts": "^3.4.0",
+    "selenium-webdriver": "^4.0.0-alpha.5"
+
+Server:
+ "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mysql": "^2.17.1"
+
 - - - - - -  - - - - - -  - - - - - -  - - - - - -  - - - - - - 
 
 In order to connect to our mysql database, we used the following credentials:
